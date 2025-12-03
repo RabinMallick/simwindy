@@ -1,0 +1,93 @@
+/* ============================
+   Tailwind base
+============================= */
+@import "tailwindcss";
+
+/* Swiper */
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/autoplay";
+
+/* ============================
+   SIMWINDY GLOBAL BRAND THEME
+============================= */
+:root {
+  --brand-name: "SimWindy";
+  --brand-color: #075056;
+
+  --background: #ffffff;
+  --primary-text: #075056;
+  --secondary-text: #5B6B6F;
+
+  --orange: #ED8A17;
+  --tan-orange: #d3945d79;
+  --vivid-orange: #f6831f42;
+
+  --black: #102A2D;
+  --dark-teal: #05383B;
+  --grayish-blue: #4a7a8631;
+
+  --peach: #FAE0C2;
+  --light-gray: #f3f3f3;
+}
+
+/* ============================
+   BASE STYLES
+============================= */
+body {
+  background: var(--background);
+  color: var(--secondary-text);
+  font-family: var(--font-outfit), sans-serif; /* Outfit font variable */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll offset for sticky navbar */
+.scroll-offset {
+  scroll-margin-top: 80px; /* adjust navbar height */
+}
+
+/* ============================
+   BRAND UTILITIES
+============================= */
+
+/* Brand text color */
+.brand-text {
+  color: var(--brand-color);
+}
+
+/* Brand background color */
+.brand-bg {
+  background-color: var(--brand-color);
+}
+
+/* Optional utility classes */
+.bg-peach {
+  background-color: var(--peach);
+}
+
+.bg-light-gray {
+  background-color: var(--light-gray);
+}
+
+.text-primary {
+  color: var(--primary-text);
+}
+
+.text-secondary {
+  color: var(--secondary-text);
+}
+
+/* No scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
