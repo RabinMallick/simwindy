@@ -3,8 +3,13 @@ import { FC, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { setCurrency } from '@/store/slice/currencySlice';
 
 export const Navbar: FC = () => {
+  const dispatch = useDispatch();
+  const currency = useSelector((state: RootState) => state.currency.currency);
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
   const router = useRouter();
@@ -92,18 +97,28 @@ export const Navbar: FC = () => {
             <button
               key={section}
               onClick={() => scrollToSection(section)}
-              className={`hover:text-(--primary-text) transition-colors cursor-pointer ${
-                activeSection === section ? 'text-(--primary-text) ' : ''
-              }`}
+              className={`hover:text-(--primary-text) transition-colors cursor-pointer ${activeSection === section ? 'text-(--primary-text) ' : ''
+                }`}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
             </button>
           ))}
+          <select
+            className="focus:outline-none"
+            value={currency}
+            onChange={(e) =>
+              dispatch(setCurrency(e.target.value as "BDT" | "USD" | "AED"))
+            }
+          >
+            <option value="BDT">BDT</option>
+            <option value="USD">USD</option>
+            <option value="AED">AED</option>
+          </select>
           <Link
             href="/apply"
             className="px-3 py-1.5 cursor-pointer rounded-lg text-[#3A220F] bg-linear-to-b from-(--peach) to-(--light-gray) hover:from-orange-200 border border-(--peach) hover:to-orange-100 transition-all duration-500"
           >
-           Buy Now
+            Buy Now
           </Link>
         </nav>
 
@@ -125,21 +140,33 @@ export const Navbar: FC = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden px-6 bg-white shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'
-        }`}
+        className={`md:hidden px-6 bg-white shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'
+          }`}
       >
         {sections.map((section) => (
           <button
             key={section}
             onClick={() => scrollToSection(section)}
-            className={`block text-(--primary-text) text-sm py-2 hover:opacity-80 w-full text-left ${
-              activeSection === section ? ' ' : ''
-            }`}
+            className={`block text-(--primary-text) text-sm py-2 hover:opacity-80 w-full text-left ${activeSection === section ? ' ' : ''
+              }`}
           >
             {section.charAt(0).toUpperCase() + section.slice(1)}
           </button>
         ))}
+
+
+        <select
+          className="focus:outline-none"
+          value={currency}
+          onChange={(e) =>
+            dispatch(setCurrency(e.target.value as "BDT" | "USD" | "AED"))
+          }
+        >
+          <option value="BDT">BDT</option>
+          <option value="USD">USD</option>
+          <option value="AED">AED</option>
+        </select>
+
         <Link
           href="/apply"
           onClick={handleClose}

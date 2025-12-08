@@ -6,7 +6,7 @@ const Footer: FC = () => {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="relative mt-16">
+        <footer className="relative">
 
             {/* Top linear Line */}
             <div className="absolute -top-1 left-0 w-full h-2 bg-linear-to-r from-(--peach) via-blue-300 to-amber-100" />

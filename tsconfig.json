@@ -37,7 +37,7 @@
     "**/*.mts",
     "out/types/**/*.ts",
     "out/dev/types/**/*.ts"
-  ],
+, "src/utils/currencyList.js"  ],
   "exclude": [
     "node_modules"
   ]

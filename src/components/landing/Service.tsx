@@ -1,24 +1,30 @@
 'use client';
+
 import { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import { Button } from '../common/button/Button';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface Country {
   name: string;
-  code?: string; // optional for regions/global
+  code?: string;
   price: number;
-  countries?: number; // optional
-  icon?: string;     // optional
+  countries?: number;
+  icon?: string;
 }
 
-// 🔹 All Countries List
+// ✅ All countries and regions
 const allCountries: Record<string, Country[]> = {
   Regions: [
     { name: 'Global', price: 10.0, countries: 149, icon: '/assets/asia.png' },
     { name: 'Asia', price: 5.0, countries: 13, icon: '/assets/asia.png' },
-    { name: 'Europe', price: 6.5, countries: 20, icon: '/assets/europe.png' },
-    { name: 'Central America', price: 10.0, countries: 6, icon: '/assets/asia.png' },
+    { name: 'Europe', price: 5.0, countries: 20, icon: '/assets/europe.png' },
+    { name: 'North-America', price: 5.0, countries: 20, icon: '/assets/europe.png' },
+    { name: 'World', price: 5.0, countries: 149, icon: '/assets/asia.png' },
+    { name: 'Oceania', price: 5.0, countries: 149, icon: '/assets/asia.png' },
+    { name: 'Africa', price: 5.0, countries: 149, icon: '/assets/asia.png' },
+    { name: 'Caribbean-Islands', price: 5.0, countries: 149, icon: '/assets/asia.png' },
   ],
   Asia: [
     { name: 'Bangladesh', code: 'BD', price: 2.5 },
@@ -37,7 +43,7 @@ const allCountries: Record<string, Country[]> = {
     { name: 'Spain', code: 'ES', price: 3.9 },
     { name: 'Netherlands', code: 'NL', price: 4.3 },
   ],
-  'North America': [
+  'North-America': [
     { name: 'United States', code: 'US', price: 5.99 },
     { name: 'Canada', code: 'CA', price: 5.5 },
     { name: 'Mexico', code: 'MX', price: 4.9 },
@@ -50,93 +56,114 @@ const allCountries: Record<string, Country[]> = {
 };
 
 export default function Service() {
-  const [tab, setTab] = useState<
-    'All' | 'Locals' | 'Global' | 'Regions' | 'Popular' | 'Asia' | 'Europe' | 'North America'
-  >('All');
+  const router = useRouter();
 
-  // 🔹 Filter and sort countries based on tab
+  const tabs = [
+    'All',
+    'Global',
+    'Regions',
+    'Popular',
+    'Asia',
+    'Europe',
+    'North-America',
+  ] as const;
+
+  const [tab, setTab] = useState<typeof tabs[number]>('All');
+
+  // 🔹 FILTERED LIST BASED ON TAB
   const selectedCountries: Country[] = (() => {
-    let list: Country[] = [];
-    switch (tab) {
-      case 'All':
-        list = Object.values(allCountries).flat();
-        break;
-      case 'Locals':
-        list = allCountries['Asia'];
-        break;
-      case 'Regions':
-        list = allCountries['Regions'];
-        break;
-      case 'Global':
-        list = allCountries['Regions'].filter(c => c.name === 'Global');
-        break;
-      case 'Popular':
-      case 'Asia':
-      case 'Europe':
-      case 'North America':
-        list = allCountries[tab] || [];
-        break;
-      default:
-        list = [];
+    if (tab === 'All') {
+      return Object.values(allCountries).flat().sort((a, b) => a.name.localeCompare(b.name));
     }
-
-    // 🔹 Sort descending by name
-    return list.sort((a, b) => a.name.localeCompare(b.name));
+    if (tab === 'Global') {
+      return allCountries['Regions'].filter(c => c.name === 'Global');
+    }
+    return (allCountries[tab] || []).sort((a, b) => a.name.localeCompare(b.name));
   })();
 
+  // 🔹 BUILD URL HELPER
+  const buildEsimUrl = (country: Country, type: string) =>
+    `/esim?destination=${encodeURIComponent(country.name)}&type=${encodeURIComponent(type)}${country.code ? `&code=${encodeURIComponent(country.code)}` : ''}`;
+
+  // 🔹 HANDLE CLICK
+  const handleItemClick = (country: Country) => {
+    switch (true) {
+      // Global
+      case country.name === 'Global':
+        router.push(buildEsimUrl(country, 'Global'));
+        break;
+
+      // World (if separate)
+      case country.name === 'World':
+        router.push(buildEsimUrl(country, 'Global'));
+        break;
+
+      // Popular tab
+      case tab === 'Popular':
+        router.push(buildEsimUrl(country, 'Popular'));
+        break;
+
+      // Specific region tabs
+      case !['All', 'Global', 'Regions', 'Popular'].includes(tab):
+        router.push(buildEsimUrl(country, tab));
+        break;
+
+      // Regions tab
+      case tab === 'Regions':
+        router.push(buildEsimUrl(country, 'Regions'));
+        break;
+
+      // All tab → auto detect region
+      default:
+        const region = Object.keys(allCountries).find(key =>
+          allCountries[key].some(c => c.name === country.name)
+        ) || 'All';
+        router.push(buildEsimUrl(country, region));
+    }
+  };
+
   return (
-    <div className="mx-auto py-8 max-w-7xl ">
+    <div className="mx-auto py-8 max-w-7xl">
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-black">eSIMs</h2>
-        <p className="text-sm text-gray-500 mt-1 md:mt-0">
-          Best eSIMs by country and region
-        </p>
+        <p className="text-sm text-gray-500 mt-1 md:mt-0">Best eSIMs by country and region</p>
       </div>
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
-        {['All', 'Locals', 'Global', 'Regions', 'Popular', 'Asia', 'Europe', 'North America'].map((t) => (
+        {tabs.map(t => (
           <Button
             key={t}
-            onClick={() => setTab(t as any)}
-            className={`px-4 py-1! rounded-md font-medium border ${
-              tab === t
-                ? 'bg-(--dark-teal) text-white border-(--dark-teal)'
-                : 'bg-white text-gray-700 border-gray-300'
-            }`}
+            onClick={() => setTab(t)}
+            className={`px-4 py-1 rounded-md font-medium border ${tab === t ? 'bg-(--dark-teal) text-white border-(--dark-teal)' : 'bg-white text-gray-700 border-gray-300'}`}
           >
             {t}
           </Button>
         ))}
       </div>
 
-      {/* Country or Region List */}
+      {/* Countries List */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {selectedCountries.map((country, index) => (
           <div
             key={index}
-            className="flex justify-between items-center border border-gray-200 rounded-md p-3 hover:shadow-md cursor-pointer transition"
+            onClick={() => handleItemClick(country)}
+            className="flex justify-between items-center bg-white border border-gray-200 rounded-md p-3 hover:shadow-md cursor-pointer transition"
           >
             <div className="flex items-center gap-3">
-              {country.code && (
-                <span className={`fi fi-${country.code.toLowerCase()}`}></span>
-              )}
+              {country.code && <span className={`fi fi-${country.code.toLowerCase()}`}></span>}
+
               {country.icon && (
-                <Image
-                  src={country.icon}
-                  alt={country.name}
-                  width={145}
-                  height={80}
-                  className="cursor-pointer w-auto h-6"
-                />
+                <Image src={country.icon} alt={country.name} width={145} height={80} className="cursor-pointer w-auto h-6" />
               )}
+
               <span className="font-medium">{country.name}</span>
             </div>
 
             <div className="flex items-center gap-2">
               <span className="text-gray-500 text-sm">
-                {country?.countries ? 'Countries ' + country?.countries : 'Starting from'}
+                {country.countries ? `Countries ${country.countries}` : 'Starting from'}
               </span>
               <span className="font-semibold">${country.price.toFixed(2)}</span>
               <FaChevronRight className="text-gray-400" />

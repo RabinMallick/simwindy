@@ -24,7 +24,7 @@ export const FAQ: FC = () => {
   };
 
   return (
-    <div className="mt-12  mx-auto">
+    <div className="mt-12  mx-auto  py-6 pb-8">
 
 
       <div>
