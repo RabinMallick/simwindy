@@ -3,8 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FcGlobe } from "react-icons/fc";
 import { MdKeyboardArrowRight } from "react-icons/md";
-
-import countries from 'world-countries';
+import countries from 'world-countries'; 
 
 export default function Countries() {
   const router = useRouter();
@@ -20,7 +19,7 @@ export default function Countries() {
               <div>
                 <h2 className="flex gap-2 text-lg font-semibold text-black">
                   <FcGlobe className="w-6 h-6" />
-                  Top {countries.length} Destinations
+                   {countries.length} Countries
                 </h2>
                 <p className="text-xs text-gray-500">
                   Buy data for the whole globe or select individual countries.

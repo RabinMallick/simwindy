@@ -43,7 +43,7 @@ export const CountrySelector: FC<CountrySelectorProps> = () => {
           {popularCountries.map((country, index) => (
             <button
               key={index}
-              onClick={() => router.push(`/esim?destination=${country.name}&type=Popular`)}
+              onClick={() => router.push(`/esim?destination=${country.name}&type=Popular${country.code ? `&code=${country.code}` : ''}`)}
               className="flex items-center justify-between p-3 pl-4 bg-white border rounded-lg text-left cursor-pointer transition-shadow duration-200 border-gray-200 hover:shadow-sm"
             >
               <div className="flex items-center gap-2 overflow-hidden">

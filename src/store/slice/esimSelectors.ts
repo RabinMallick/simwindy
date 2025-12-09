@@ -19,12 +19,16 @@ interface EsimItem {
 
 // 🔹 Extend ESIM item with calculated fields
 interface EsimItemWithCalc extends EsimItem {
-    netPriceNum: number;
-    dataNum: number;
-    pricePerGB: number;
-    voice?: number | null;
-    text?: number | null;
+  netPriceNum: number;
+  dataNum: number;
+  pricePerGB: number;
+  voice?: number | null;
+  text?: number | null;
+  prices?: {
+    recommended_retail_price?: Record<string, string>;
+  };
 }
+
 
 export const selectFilteredEsim = createSelector(
     [(state: RootState) => state.esim],

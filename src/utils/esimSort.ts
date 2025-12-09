@@ -19,7 +19,7 @@ export interface EsimFilters {
   voice?: number;
   text?: number;
   voiceSms?: string;
-  sortBy?: "cheapest" | "mostData" | "leastData" | "lowestPricePerGB";
+  sortBy?: 'cheapest' | 'mostData' | 'leastData' | 'lowestPricePerGB';
 }
 
 // 🔹 Extended type for calculations
@@ -27,7 +27,7 @@ interface EsimItemWithCalc extends EsimItem {
   netPriceNum: number;
   dataNum: number;
   pricePerGB: number;
- prices?: {
+  prices?: {
     recommended_retail_price?: Record<string, string>;
   };
 }
@@ -39,13 +39,17 @@ export const filterAndSortEsim = (
   currency: string
 ): EsimItemWithCalc[] => {
   if (!esim?.length) return [];
- 
+
   const data: EsimItemWithCalc[] = esim
     .map((item) => ({
       ...item,
-      netPriceNum: parseFloat(item.prices?.recommended_retail_price?.[currency] ?? "0"),
+      netPriceNum: parseFloat(
+        item.prices?.recommended_retail_price?.[currency] ?? '0'
+      ),
       dataNum: parseFloat(item.data),
-      pricePerGB: parseFloat(item.prices?.recommended_retail_price?.[currency] ?? "0") / parseFloat(item.data),
+      pricePerGB:
+        parseFloat(item.prices?.recommended_retail_price?.[currency] ?? '0') /
+        parseFloat(item.data),
     }))
     .filter((item) => {
       return (
@@ -62,13 +66,13 @@ export const filterAndSortEsim = (
   // 🔹 Sorting
   data.sort((a, b) => {
     switch (filters.sortBy) {
-      case "cheapest":
+      case 'cheapest':
         return a.netPriceNum - b.netPriceNum;
-      case "mostData":
+      case 'mostData':
         return b.dataNum - a.dataNum;
-      case "leastData":
+      case 'leastData':
         return a.dataNum - b.dataNum;
-      case "lowestPricePerGB":
+      case 'lowestPricePerGB':
         return a.pricePerGB - b.pricePerGB;
       default:
         return 0;

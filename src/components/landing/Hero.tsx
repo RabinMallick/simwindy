@@ -1,12 +1,12 @@
 'use client';
 
-import { countries } from '@/utils/search';
 
 import Image from 'next/image';
 import { MdSupportAgent } from 'react-icons/md';
 import { FiGlobe, FiSearch, FiShield } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import countries from 'world-countries';
 
 interface Country {
     name: string;
@@ -26,7 +26,6 @@ export const Hero = () => {
     >([]);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
-    const data = countries;
 
     // Click outside to close suggestions
     useEffect(() => {
@@ -39,18 +38,23 @@ export const Hero = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const data: Country[] = countries.map((c) => ({
+        name: c.name.common,
+        code: c.cca2,
+    }));
+
 
     const allCountries: Record<string, Country[]> = {
         Local: data ?? [],
         Regions: [
-            { name: 'asia', code: '', countries: 13, icon: '/assets/asia.png' },
-            { name: 'europe', code: '', countries: 20, icon: '/assets/europe.png' },
-            { name: 'north-america', code: '', countries: 20, icon: '/assets/europe.png' },
-            { name: 'world', code: '', countries: 149, icon: '/assets/asia.png' },
-            { name: 'oceania', code: '', countries: 149, icon: '/assets/asia.png' },
-            { name: 'africa', code: '', countries: 149, icon: '/assets/asia.png' },
-            { name: 'caribbean-islands', code: '', countries: 149, icon: '/assets/asia.png' },
-            { name: 'middle-east-and-north-africa', code: '', countries: 149, icon: '/assets/asia.png' },
+            { name: 'Asia', code: '', countries: 13, icon: '/assets/asia.png' },
+            { name: 'Europe', code: '', countries: 20, icon: '/assets/europe.png' },
+            { name: 'North-America', code: '', countries: 20, icon: '/assets/europe.png' },
+            { name: 'World', code: '', countries: 149, icon: '/assets/asia.png' },
+            { name: 'Oceania', code: '', countries: 149, icon: '/assets/asia.png' },
+            { name: 'Africa', code: '', countries: 149, icon: '/assets/asia.png' },
+            { name: 'Caribbean-Islands', code: '', countries: 149, icon: '/assets/asia.png' },
+            { name: 'Middle-East-And-North-Africa', code: '', countries: 149, icon: '/assets/asia.png' },
         ],
 
         Global: [{ name: 'Global', code: '', countries: 149, icon: '/assets/asia.png' }],

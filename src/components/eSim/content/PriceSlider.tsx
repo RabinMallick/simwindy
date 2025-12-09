@@ -1,12 +1,8 @@
 import { Range } from 'react-range';
 
-export const PriceSlider = ({ minPrice, maxPrice, range, setRange, currency }: any) => {
+export const PriceSlider = ({ minPrice, maxPrice, range, setRange }: any) => {
     return (
-        <div className="mt-3">
-            <label className="block text-white text-sm mb-2">
-                Price Range
-            </label>
-
+        <div className="mt-3"> 
             <Range
                 step={1}
                 min={minPrice}
@@ -34,12 +30,7 @@ export const PriceSlider = ({ minPrice, maxPrice, range, setRange, currency }: a
                         className="w-3 h-3 bg-orange-500 rounded-full "
                     />
                 )}
-            />
-
-            <div className="flex justify-between text-white text-xs mt-1.5">
-                <span>{range[0]} {currency}</span>
-                <span>{range[1]} {currency}</span>
-            </div>
+            /> 
         </div>
     );
 };
