@@ -76,8 +76,8 @@ export const Navbar: FC = () => {
   }, [pathname]);
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <header className="bg-white shadow-sm sticky top-0 z-50 hidden md:block">
+      <div className="max-w-7xl mx-auto px-3 md:px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link href="/">
@@ -140,7 +140,7 @@ export const Navbar: FC = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden px-6 bg-white shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'
+        className={`md:hidden px-3 md:px-6 bg-white shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'
           }`}
       >
         {sections.map((section) => (

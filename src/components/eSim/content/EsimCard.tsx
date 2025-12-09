@@ -63,7 +63,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
         flex flex-col justify-between gap-2
         hover:-translate-y-0.5
         ${isSelected 
-          ? 'border-(--dark-teal) ring-1 ring-(--dark-teal)/50 bg-linear-to-b from-teal-50/80 to-white' 
+          ? 'border-(--primary) ring-1 ring-(--primary)/50 bg-linear-to-b from-teal-50/80 to-white' 
           : 'border-slate-200'}
       `}
     >
@@ -72,16 +72,16 @@ export const EsimCard: React.FC<EsimCardProps> = ({
         <div className="flex items-center gap-2">
           <div className="md:hidden">
             {isSelected ? (
-              <HiOutlineCheckCircle className="w-4 h-4 text-(--dark-teal)" />
+              <HiOutlineCheckCircle className="w-4 h-4 text-(--primary)" />
             ) : (
-              <IoMdRadioButtonOff className="w-4 h-4 text-(--dark-teal)" />
+              <IoMdRadioButtonOff className="w-4 h-4 text-(--primary)" />
             )}
           </div>
 
           <div className="w-full">
             <h3
               onClick={handleSelect}
-              className="text-start md:text-center text-sm font-extrabold text-(--dark-teal) mb-2 md:mt-4"
+              className="text-start md:text-center text-sm font-extrabold text-(--primary) mb-2 md:mt-4"
             >
               {data?.data || data?.title}
             </h3>
@@ -130,7 +130,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
           onClick={handleSelect}
           className="md:mt-2 md:pt-2 md:border-t border-slate-100 flex items-center justify-end md:justify-between gap-2 cursor-pointer"
         >
-          <span className="text-sm font-bold text-(--dark-teal) flex items-baseline gap-1">
+          <span className="text-sm font-bold text-(--primary) flex items-baseline gap-1">
             {currency} {(priceNum * totalSimCards).toFixed(2)}
             <span className="text-[9px] font-light text-slate-400 hidden md:block">
               / {totalSimCards} SIM
@@ -139,7 +139,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
 
           <div className="hidden md:block">
             {isSelected && (
-              <HiOutlineCheckCircle className="w-4 h-4 text-(--dark-teal)" />
+              <HiOutlineCheckCircle className="w-4 h-4 text-(--primary)" />
             )}
           </div>
         </div>
@@ -148,7 +148,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
       {/* Badge */}
       {data?.slug && (
         <div className="hidden md:block">
-          <div className="absolute top-2 left-2 px-2 py-0.5 text-[8px] font-bold rounded-full bg-linear-to-r from-slate-200 to-orange-400/20 text-(--dark-teal) flex items-center gap-1 capitalize">
+          <div className="absolute top-2 left-2 px-2 py-0.5 text-[8px] font-bold rounded-full bg-linear-to-r from-slate-200 to-orange-400/20 text-(--primary) flex items-center gap-1 capitalize">
             <HiOutlineFire className="w-2.5 h-2.5" />
             {data?.slug}
           </div>

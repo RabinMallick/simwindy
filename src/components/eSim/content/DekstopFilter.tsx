@@ -73,7 +73,7 @@ export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
     if (!values || !values.length) return null;
     return (
       <div className="mb-4">
-        <h2 className="text-sm font-semibold text-(--dark-teal) mb-2">{title}</h2>
+        <h2 className="text-sm font-semibold text-(--primary) mb-2">{title}</h2>
         <div className="grid grid-cols-3 gap-2">
           {values.map((value) => (
             <Button
@@ -82,7 +82,7 @@ export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
               className={`text-xs! px-1! py-1.5 rounded-md transition-colors flex items-center justify-center border-0 ${
                 filters[key] === value
                   ? 'text-[#3A220F] font-medium bg-linear-to-r from-orange-300 to-orange-200 hover:from-orange-200 hover:to-orange-100 shadow-md'
-                  : 'bg-(--dark-teal)/8 text-(--black)  hover:bg-(--dark-teal)/15'
+                  : 'bg-(--primary)/8 text-(--black)  hover:bg-(--primary)/15'
               }`}
             >
               {value} {unit}
@@ -97,14 +97,14 @@ export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
     <div className="lg:col-span-4 xl:col-span-3">
       <div className="bg-white backdrop-blur-md p-5 rounded-lg flex flex-col justify-between space-y-6">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-(--dark-teal) px-3 py-1.5 rounded-full text-white text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 bg-(--primary) px-3 py-1.5 rounded-full text-white text-xs font-semibold">
           <HiOutlineGlobeAlt className="w-4 h-4" />
           <span>{length} packages</span>
         </div>
 
         {/* Price Slider */}
         <div className="bg-(--tan-orange) p-4 rounded-lg">
-          <h3 className="text-sm font-medium text-(--dark-teal) mb-2">Price Range ({currency})</h3>
+          <h3 className="text-sm font-medium text-(--primary) mb-2">Price Range ({currency})</h3>
           <PriceSlider minPrice={minPrice} maxPrice={maxPrice} range={range} setRange={handlePriceChange} currency={currency} />
           <div className="flex justify-between text-xs text-gray-400 mt-2">
             <span>{range[0]}</span>

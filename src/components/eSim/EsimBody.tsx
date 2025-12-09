@@ -74,7 +74,6 @@ export const EsimBody = () => {
 
     return (
         <>
-
             <DekstopFilter data={esim} />
 
             {/* RIGHT SIDE */}

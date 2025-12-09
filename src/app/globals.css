@@ -13,18 +13,17 @@
 ============================= */
 :root {
   --brand-name: "SimWindy";
-  --brand-color: #075056;
+  --brand-color: #175191;
 
   --background: #ffffff;
-  --primary-text: #075056;
+  --primary: #175191;
   --secondary-text: #5B6B6F;
 
   --orange: #ED8A17;
   --tan-orange: #d3945d79;
   --vivid-orange: #f6831f42;
 
-  --black: #102A2D;
-  --dark-teal: #05383B;
+  --black: #102A2D; 
   --grayish-blue: #4a7a8631;
 
   --peach: #FAE0C2;

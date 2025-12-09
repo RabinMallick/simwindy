@@ -12,7 +12,7 @@ export default function ESimPageClient() {
 
   return (
     <div className="min-h-screen bg-gray-100 text-slate-900 font-sans pt-4 md:p-8">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-3 md:px-6">
         <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6 capitalize">
           <HiOutlineHome className="w-4 h-4" />
           <HiOutlineChevronRight className="w-3 h-3" />

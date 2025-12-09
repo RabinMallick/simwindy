@@ -136,7 +136,7 @@ export default function Service() {
           <Button
             key={t}
             onClick={() => setTab(t)}
-            className={`px-4 py-1 rounded-md font-medium border ${tab === t ? 'bg-(--dark-teal) text-white border-(--dark-teal)' : 'bg-white text-gray-700 border-gray-300'}`}
+            className={`px-4 py-1 rounded-md font-medium border ${tab === t ? 'bg-(--primary) text-white border-(--primary)' : 'bg-white text-gray-700 border-gray-300'}`}
           >
             {t}
           </Button>

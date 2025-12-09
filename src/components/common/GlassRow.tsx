@@ -10,7 +10,7 @@ type GlassRowProps = {
 
 export const GlassRow: React.FC<GlassRowProps> = ({ icon, label, value, hasInfo }) => {
   return (
-    <div className="flex items-center gap-3 bg-(--dark-teal)/80 backdrop-blur-md p-3 rounded-lg border border-white/20 cursor-pointer hover:bg-(--dark-teal)/50 transition-all duration-200">
+    <div className="flex items-center gap-3 bg-(--primary)/80 backdrop-blur-md p-3 rounded-lg border border-white/20 cursor-pointer hover:bg-(--primary)/50 transition-all duration-200">
       <div className="bg-white/20 text-white p-2 rounded-xl shadow-inner flex items-center justify-center">
         {icon}
       </div>

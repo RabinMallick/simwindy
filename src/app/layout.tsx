@@ -55,7 +55,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Toast + Scroll */}
           <Toaster position="top-right" reverseOrder={false} />
-          <ScrollTop />
+          
+          <div className="hidden md:block">
+            <ScrollTop />
+          </div>
 
         </Providers>
       </body>

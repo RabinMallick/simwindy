@@ -37,7 +37,7 @@ export const ScrollTop: FC = () => {
   const offset = circumference - (scroll.percent / 100) * circumference;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence >
       {mounted && scroll.scrolled && (
         <motion.button
           aria-label="Scroll to top"
@@ -45,8 +45,8 @@ export const ScrollTop: FC = () => {
           className="
             fixed bottom-8 right-6 md:bottom-10 md:right-8
             w-12 h-12 flex items-center justify-center rounded-full
-            bg-(--dark-teal) text-white shadow-lg z-50 cursor-pointer
-            hover:bg-var(--orange) transition-colors duration-300
+            bg-(--primary) text-white shadow-lg z-50 cursor-pointer
+            hover:bg-var(--orange) transition-colors duration-300 
           "
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}

@@ -6,14 +6,14 @@ const Footer: FC = () => {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="relative">
+        <footer className="relative hidden md:block">
 
             {/* Top linear Line */}
             <div className="absolute -top-1 left-0 w-full h-2 bg-linear-to-r from-(--peach) via-blue-300 to-amber-100" />
 
             {/* Main Footer */}
-            <div className="bg-(--dark-teal) text-white py-14 pb-6">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 px-6">
+            <div className="bg-(--primary) text-white py-14 pb-6">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 px-3 md:px-6">
 
                     {/* Brand */}
                     <div>
@@ -87,7 +87,7 @@ const Footer: FC = () => {
                                 className="w-full px-3 py-2 bg-transparent text-white placeholder-gray-300 outline-none text-sm"
                             />
 
-                            <button className="bg-linear-to-r from-green-300 to-teal-300 text-(--dark-teal)
+                            <button className="bg-linear-to-r from-green-300 to-teal-300 text-(--primary)
                                  px-4 py-2 text-sm font-bold hover:opacity-90 transition">
                                 Join
                             </button>

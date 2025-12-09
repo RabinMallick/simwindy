@@ -106,32 +106,18 @@ export const Hero = () => {
         setSuggestions(getSuggestions(value));
     };
 
-    // Search click
-    const handleClick = () => {
-        // Only navigate if a valid selection exists
-        if (selectedRegion || selectedCountry) {
-            const url = `/esim?destination=${encodeURIComponent(query)}${selectedRegion ? `&type=${encodeURIComponent(selectedRegion)}` : ''
-                }${selectedCountry ? `&code=${encodeURIComponent(selectedCountry)}` : ''}`;
-            router.push(url);
-        } else {
-            // Optionally, show a warning or do nothing
-            console.log('No valid selection made, cannot navigate.');
-        }
-    };
-
-    // Enter key triggers search
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') handleClick();
-    };
-
-    // Suggestion click
+   // Suggestion click
     const handleSelectSuggestion = (name: string, region: string, code?: string) => {
         setQuery(name);
         setSelectedRegion(region);
         setSelectedCountry(code || null);
         setSuggestions([]);
-    };
 
+        // Directly navigate
+        const url = `/esim?destination=${encodeURIComponent(name)}${region ? `&type=${encodeURIComponent(region)}` : ''
+            }${code ? `&code=${encodeURIComponent(code)}` : ''}`;
+        router.push(url);
+    };
 
     const features = [
         { icon: <FiGlobe style={{ color: 'var(--primary-text)' }} />, title: '200+ countries', subLabel: 'coverage' },
@@ -140,7 +126,7 @@ export const Hero = () => {
     ];
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-7xl mx-auto px-3 md:px-6 py-12">
             {/* Left Content */}
             <div className="lg:col-span-7">
                 <div className="inline-block px-3 py-1 rounded-full bg-linear-to-r from-[#dae5e5] to-[#fce9d8] text-xs font-bold">
@@ -167,15 +153,13 @@ export const Hero = () => {
                     <input
                         type="text"
                         value={query}
-                        onChange={handleChange}
-                        onKeyDown={handleKeyPress}
+                        onChange={handleChange} 
                         placeholder="Search for your destination in over 200+ countries"
                         className="w-full pr-12 pl-4 py-3 rounded-lg border bg-white border-gray-300 focus:outline-none hover:border-[#f5a623] placeholder-gray-400"
                     />
 
-                    <button
-                        onClick={handleClick}
-                        className="absolute right-2 top-14.5 transform -translate-y-1/2 bg-red-500 text-white p-2 rounded-lg hover:bg-[#093c3e] transition-colors"
+                    <button 
+                        className="absolute right-2 top-14.5 transform -translate-y-1/2 bg-red-500 text-white p-2 rounded-lg hover:bg-(--primary)/50 transition-colors"
                     >
                         <FiSearch size={20} />
                     </button>

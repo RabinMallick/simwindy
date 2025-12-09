@@ -32,7 +32,7 @@ export const FAQ: FC = () => {
         <p className="text-xs text-gray-500">
           Here you'll find answers to the most frequently asked questions. Our FAQ section covers activation steps, supported devices, network coverage, and plan details.
           If you need further assistance, feel free to contact our support team via chat, email, or phone.
-          For detailed instructions, visit our <a href="/help-center" className="text-(--dark-teal) underline">Help Center</a> or check out our <a href="/tutorials" className="text-(--dark-teal) underline">Quick Start Tutorials</a>.
+          For detailed instructions, visit our <a href="/help-center" className="text-(--primary) underline">Help Center</a> or check out our <a href="/tutorials" className="text-(--primary) underline">Quick Start Tutorials</a>.
           We’re here to ensure your eSIM experience is smooth and hassle-free.
         </p>
       </div>
