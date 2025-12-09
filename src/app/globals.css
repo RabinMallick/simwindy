@@ -2,6 +2,7 @@
    Tailwind base
 ============================= */
 @import "tailwindcss";
+@plugin "daisyui";
 
 /* Swiper */
 @import "swiper/css";
@@ -23,7 +24,7 @@
   --tan-orange: #d3945d79;
   --vivid-orange: #f6831f42;
 
-  --black: #102A2D; 
+  --black: #102A2D;
   --grayish-blue: #4a7a8631;
 
   --peach: #FAE0C2;

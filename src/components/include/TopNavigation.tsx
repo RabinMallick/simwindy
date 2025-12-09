@@ -18,9 +18,9 @@ export const TopNavigation = () => {
   return (
     <header
       className={` 
-        bg-(--peach) flex justify-between items-center py-3 sticky top-0 px-3 z-50 
+         flex justify-between items-center py-3 sticky top-0 px-3 z-50 
         transition-all duration-500 ease-in-out
-        ${isScrolled ? "border-b border-gray-200 shadow-sm backdrop-blur-sm" : ""}
+        ${isScrolled ? "border-b border-gray-200 shadow-sm backdrop-blur-sm bg-(--peach)/50" : "bg-(--peach)/10"}
       `}
     >
       <Image

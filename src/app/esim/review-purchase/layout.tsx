@@ -2,13 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 import { Outfit } from "next/font/google";
 import { ScrollTop } from "@/components/common/scroll/ScrollTop";
-
-import "flag-icons/css/flag-icons.min.css";
-import "./globals.css";
-import { Navbar } from "@/components/include/Navbar";
-import Footer from "@/components/include/Footer";
-import { Providers } from "@/store/providers";
-
 // Font setup
 const outfit = Outfit({
   subsets: ["latin"],
@@ -43,24 +36,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} font-sans antialiased bg-gray-50 `}>
+      <body className={`${outfit.variable} font-sans antialiased bg-gray-50`}>
 
-        <Providers>
+        {/* Page Content */}
+        <main>{children}</main>
 
-          <Navbar />
-          {/* Page Content */}
-          <main>{children}</main>
-
-          <Footer />
-
-          {/* Toast + Scroll */}
-          <Toaster position="top-right" reverseOrder={false} />
-          
-          <div className="hidden md:block">
-            <ScrollTop />
-          </div>
-
-        </Providers>
+        {/* Toast + Scroll */}
+        <Toaster position="top-right" reverseOrder={false} />
+        <ScrollTop />
       </body>
     </html>
   );

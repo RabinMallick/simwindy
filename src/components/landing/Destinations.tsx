@@ -79,7 +79,7 @@ export const Destinations: FC = () => {
                             {/* Badge */}
                             {d.tag && (
                                 <span className="absolute top-2 right-3 text-[8px] font-semibold text-white 
-                                 bg-(--primary-text) to-green-600 
+                                 bg-( --primary) to-green-600 
                                  px-3 py-1 rounded-full shadow-md z-10">
                                     {d.tag}
                                 </span>

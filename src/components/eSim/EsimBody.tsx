@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useGetEsimsMutation } from '@/store/api/apiSlice';
 import { RootState } from '@/store/store';
 import { EsimFilters, filterAndSortEsim } from '@/utils/esimSort';
@@ -74,45 +74,76 @@ export const EsimBody = () => {
 
     return (
         <>
+
             <DekstopFilter data={esim} />
 
             {/* RIGHT SIDE */}
-            <div className="lg:col-span-8 xl:col-span-9">
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
-                    <div className="flex-1 min-w-0">
-                        <h1 className="flex gap-2 items-baseline text-2xl md:text-3xl font-extrabold leading-tight">
-                            {code ? (
-                                <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
-                            ) : (
-                                <Image
-                                    src="/assets/earth.png"
-                                    alt={`${type} eSIM`}
-                                    width={145}
-                                    height={80}
-                                    className="w-auto h-7.5 border border-gray-200 rounded shrink-0"
-                                    priority={type === "Global"}
-                                />
-                            )}
-                            <span
-                                className="text-transparent bg-clip-text truncate"
-                                style={{ backgroundImage: "linear-gradient(to right, var(--primary-text), var(--orange))" }}
-                            >
-                                {destination} eSIM
-                            </span>
-                        </h1>
+            <div className="lg:col-span-8 xl:col-span-9 ">
 
-                        <p className="text-gray-600 max-w-xl mt-1">
-                            Downloadable {destination} SIM card with prepaid data
-                        </p>
-                    </div>
+                <div className=" md:hidden">
 
-                    <div className="text-right shrink-0">
-                        <div className="text-2xl md:text-3xl font-bold text-slate-900">
-                            {formattedPrice}
-                        </div>
+                    {/* Country */}
+                    <div className="flex items-center gap-2 mb-1 p-2 bg-white rounded-md">
+                        {code ? (
+                            <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
+                        ) : (
+                            <Image
+                                src="/assets/earth.png"
+                                alt={`${type} eSIM`}
+                                width={145}
+                                height={80}
+                                className="w-auto h-7.5 border border-gray-200 rounded shrink-0"
+                                priority={type === "Global"}
+                            />
+                        )}
+                        <span className='bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate'>{destination} eSIM</span>
                     </div>
+                    <p className="text-gray-600 text-[10px]  mb-5">
+                        Best for single country e-SIM 4G/5G Connectivity.
+                    </p>
+
+
+
                 </div>
 
+                <div className="hidden md:block">
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4 ">
+                        <div className="flex-1 min-w-0">
+                            <h1 className="flex gap-2 items-baseline text-2xl md:text-3xl font-extrabold leading-tight">
+                                {code ? (
+                                    <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
+                                ) : (
+                                    <Image
+                                        src="/assets/earth.png"
+                                        alt={`${type} eSIM`}
+                                        width={145}
+                                        height={80}
+                                        className="w-auto h-7.5 border border-gray-200 rounded shrink-0"
+                                        priority={type === "Global"}
+                                    />
+                                )}
+
+                                <span
+                                    className="text-transparent bg-clip-text truncate"
+                                    style={{ backgroundImage: "linear-gradient(to right, var( --primary), var(--orange))" }}
+                                >
+                                    {destination} eSIM
+                                </span>
+                            </h1>
+
+                            <p className="text-gray-600 max-w-xl mt-1">
+                                Downloadable {destination} SIM card with prepaid data
+                            </p>
+                        </div>
+
+                        <div className="text-right shrink-0">
+                            <div className="text-2xl md:text-3xl font-bold text-slate-900">
+                                {formattedPrice}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 {/* Esim Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
                     {sortedData.map(item => (

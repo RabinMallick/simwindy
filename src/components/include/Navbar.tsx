@@ -97,7 +97,7 @@ export const Navbar: FC = () => {
             <button
               key={section}
               onClick={() => scrollToSection(section)}
-              className={`hover:text-(--primary-text) transition-colors cursor-pointer ${activeSection === section ? 'text-(--primary-text) ' : ''
+              className={`hover:text-( --primary) transition-colors cursor-pointer ${activeSection === section ? 'text-( --primary) ' : ''
                 }`}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
@@ -147,7 +147,7 @@ export const Navbar: FC = () => {
           <button
             key={section}
             onClick={() => scrollToSection(section)}
-            className={`block text-(--primary-text) text-sm py-2 hover:opacity-80 w-full text-left ${activeSection === section ? ' ' : ''
+            className={`block text-( --primary) text-sm py-2 hover:opacity-80 w-full text-left ${activeSection === section ? ' ' : ''
               }`}
           >
             {section.charAt(0).toUpperCase() + section.slice(1)}

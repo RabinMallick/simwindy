@@ -87,14 +87,14 @@ export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
             >
               {value} {unit}
             </Button>
-          ))}
+          ))} 
         </div>
       </div>
     );
   };
 
   return (
-    <div className="lg:col-span-4 xl:col-span-3">
+    <div className="hidden md:block lg:col-span-4 xl:col-span-3 ">
       <div className="bg-white backdrop-blur-md p-5 rounded-lg flex flex-col justify-between space-y-6">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-(--primary) px-3 py-1.5 rounded-full text-white text-xs font-semibold">

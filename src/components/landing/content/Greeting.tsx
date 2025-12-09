@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import { FiSearch } from 'react-icons/fi';
+import Image from 'next/image'; 
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import countries from 'world-countries';

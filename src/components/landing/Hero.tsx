@@ -120,9 +120,9 @@ export const Hero = () => {
     };
 
     const features = [
-        { icon: <FiGlobe style={{ color: 'var(--primary-text)' }} />, title: '200+ countries', subLabel: 'coverage' },
-        { icon: <MdSupportAgent style={{ color: 'var(--primary-text)' }} />, title: '24x7', subLabel: 'Support window' },
-        { icon: <FiShield style={{ color: 'var(--primary-text)' }} />, title: 'Secure', subLabel: 'Data handling' },
+        { icon: <FiGlobe style={{ color: 'var( --primary)' }} />, title: '200+ countries', subLabel: 'coverage' },
+        { icon: <MdSupportAgent style={{ color: 'var( --primary)' }} />, title: '24x7', subLabel: 'Support window' },
+        { icon: <FiShield style={{ color: 'var( --primary)' }} />, title: 'Secure', subLabel: 'Data handling' },
     ];
 
     return (
