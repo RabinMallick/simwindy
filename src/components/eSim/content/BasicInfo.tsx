@@ -43,7 +43,7 @@ const BasicInfo: FC<BasicInfoProps> = ({ data }) => {
     <div>
       {/* Header */}
       <div className="w-full flex items-center justify-between p-2 md:px-4  bg-gray-50 hover:bg-gray-100 transition-colors">
-        <h2 className="text-[12px] md:text-[18px] font-semibold text-gray-800">Basic Info</h2>
+        <h2 className="text-[12px] md:text-[18px] font-semibold text-gray-800">{data?.title}</h2>
       </div>
 
       <div className="mt-3 grid grid-cols-2 lg:grid-cols-3 gap-3">
