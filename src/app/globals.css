@@ -91,3 +91,24 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+
+/* Drawer Animations */
+@layer utilities {
+  @keyframes drawerSlideIn {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes drawerSlideOut {
+    from { transform: translateX(0); }
+    to   { transform: translateX(100%); }
+  }
+
+  .drawer-open {
+    animation: drawerSlideIn 0.30s ease-out forwards;
+  }
+
+  .drawer-close {
+    animation: drawerSlideOut 0.30s ease-in forwards;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { RootState } from "@/store/store";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   HiOutlineCheckCircle,
   HiOutlineFire,
@@ -50,11 +50,14 @@ export const EsimCard: React.FC<EsimCardProps> = ({
 }) => {
   const currency = useSelector((state: RootState) => state.currency.currency);
 
-  const priceNum = parseFloat(data?.prices?.recommended_retail_price?.[currency] ?? "0");
+  const priceNum = parseFloat(
+    data?.prices?.recommended_retail_price?.[currency] ?? "0"
+  );
   const isSelected = selectedId === String(data?.id);
   const totalSimCards = 1;
 
   const [simItem, setSimItem] = useState<EsimData | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   const handleSelect = () => onSelect(String(data.id), priceNum);
 
@@ -62,18 +65,29 @@ export const EsimCard: React.FC<EsimCardProps> = ({
     ? `${data.coverages.length} ${data.coverages.length === 1 ? "Country" : "Countries"}`
     : data?.title;
 
-  const cardClasses = `relative w-full p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${isSelected
-    ? "border-(--primary) ring-1 ring-(--primary)/50 bg-linear-to-b from-teal-50/80 to-white"
-    : "border-slate-200"
-    }`;
+  const cardClasses = `relative w-full p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${
+    isSelected
+      ? "border-(--primary) ring-1 ring-(--primary)/50 bg-linear-to-b from-teal-50/80 to-white"
+      : "border-slate-200"
+  }`;
 
-
+  /** Smooth Drawer Close */
+  const handleDrawerClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setSimItem(null);
+      setIsClosing(false);
+    }, 300); // match animation time
+  };
 
   return (
     <>
       <button className={cardClasses}>
-        <div onClick={handleSelect} className="flex justify-between md:grid md:grid-cols-1 gap-1 w-full">
-          {/* Left Content */}
+        <div
+          onClick={handleSelect}
+          className="flex justify-between md:grid md:grid-cols-1 gap-1 w-full"
+        >
+          {/* Left */}
           <div className="flex items-center gap-2">
             <div className="md:hidden">
               {isSelected ? (
@@ -104,23 +118,30 @@ export const EsimCard: React.FC<EsimCardProps> = ({
                 {data?.countryFlag && (
                   <div
                     className="h-4 w-7 rounded bg-cover bg-center border border-slate-200 hidden md:block"
-                    style={{ backgroundImage: `url(https://airalo.com/images/${data.countryFlag})` }}
+                    style={{
+                      backgroundImage: `url(https://airalo.com/images/${data.countryFlag})`,
+                    }}
                   />
                 )}
-
 
                 <span className="flex items-center gap-1 flex-wrap">
                   {coverageText},
                   <span className="capitalize md:hidden">({data?.slug})</span>
 
                   <span
-                    onClick={(e) => { e.stopPropagation(); setSimItem(data); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSimItem(data);
+                    }}
                     className="capitalize md:hidden px-1.5 bg-(--primary)/50 text-white rounded-full"
                   >
                     Details
                   </span>
                   <span
-                    onClick={(e) => { e.stopPropagation(); setSimItem(data); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSimItem(data);
+                    }}
                     className="cursor-pointer px-1.5 bg-amber-400/20 rounded-full absolute right-3 hidden md:block"
                   >
                     Details
@@ -130,7 +151,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
             </div>
           </div>
 
-          {/* Right Content */}
+          {/* Right */}
           <div className="md:mt-2 md:pt-2 md:border-t border-slate-100 flex items-center justify-end md:justify-between gap-2 cursor-pointer">
             <span className="text-sm font-bold text-(--primary) flex items-baseline gap-1">
               {currency} {(priceNum * totalSimCards).toFixed(2)}
@@ -156,23 +177,27 @@ export const EsimCard: React.FC<EsimCardProps> = ({
             </div>
           </div>
         )}
-
       </button>
 
+      {/* Drawer */}
       {simItem && (
         <div className="fixed inset-0 z-50 flex">
+
           {/* Backdrop */}
           <div
-            onClick={() => setSimItem(null)}
-            className="absolute inset-0 bg-black/20"
-          ></div>
+            onClick={handleDrawerClose}
+            className="absolute inset-0 bg-black/40 transition-opacity duration-300"
+          />
 
           {/* Drawer Panel */}
-          <div className="ml-auto w-full md:w-[600px] h-full bg-white shadow-xl relative z-50 animate-slideLeft">
-            <TopHeader title="E-Sim Details" onClick={() => setSimItem(null)} />
-            <EsimDetails data={simItem} /> 
-          </div> 
-
+          <div
+            className={`ml-auto w-full md:w-[600px] h-full bg-white shadow-xl relative z-50 
+              ${isClosing ? "drawer-close" : "drawer-open"}
+            `}
+          >
+            <TopHeader title="E-Sim Details" onClick={handleDrawerClose} />
+            <EsimDetails data={simItem} currency={currency}/>
+          </div>
         </div>
       )}
     </>

@@ -1,42 +1,51 @@
 "use client";
 
 import { useState } from "react";
-import { HiOutlineFire } from "react-icons/hi";
-export default function EsimDetails({ data }) {
+import EsimCheckoutBar from "./content/EsimCheckoutBar";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { GiWorld } from "react-icons/gi";
+import BasicInfo from "./content/BasicInfo";
+export default function EsimDetails({ data, currency }) {
+
+    const searchParams = useSearchParams();
+    const destination = searchParams.get("destination") ?? "";
+    const type = searchParams.get("type") ?? "";
+    const code = searchParams.get("code") ?? "";
 
     const [numSim, setNumSim] = useState(1);
-    const retail = data?.prices?.recommended_retail_price?.[data?.currency] ?? "0";
-    const agent = data?.prices?.agentPrice?.[data?.currency] ?? "0";
+    const retail = data?.prices?.recommended_retail_price?.[currency ?? data?.currency] ?? "0";
+    const agent = data?.prices?.agentPrice?.[currency ?? data?.currency] ?? "0";
 
     const handleIncrement = () => setNumSim((prev) => prev + 1);
     const handleDecrement = () => setNumSim((prev) => Math.max(1, prev));
 
     const totalPrice = data?.price * numSim;
 
-
-
     return (
         <div className="min-h-100 max-h-[calc(100vh-80px)] overflow-y-auto text-xs">
+
+            {/* Header */}
+
+            <div className="px-4 border-b-2 border-(--primary) pt-2.5 md:sticky md:top-0 md:py-2 md:pt-3 bg-white">
+                {/* Country */}
+                <div className="flex items-center text-sm md:text-xl font-bold gap-2 mb-1 bg-white">
+
+                    {code ? <span className={`fi fi-${code.toLowerCase()} border border-gray-200 md:w-10! w-6.5! md:h-7 shrink-0`}></span>
+                        :
+                        <span className="border border-gray-200 md:w-10! w-6.5! h-5 md:h-7 shrink-0 flex items-center justify-center"><GiWorld className="p-0.5" /></span>
+                    }
+                    <span className='bg-linear-to-r  from-(--primary) to-(--orange) text-transparent bg-clip-text truncate'>{destination} eSIM</span>
+                </div>
+                <p className="text-gray-600 text-[10px]  pb-2">
+                    Best for single country e-SIM 4G/5G Connectivity.
+                </p></div>
+
             <div className="p-4 space-y-6 mb-24 md:mb-4">
 
 
-                {/* Header */}
-                <div className="flex items-center gap-3">
-                    <div>
-                        <h1 className="text-[15px] font-bold">{data?.title}</h1>
-                        <p className="text-[12px] text-gray-600">
-                            {data?.operatorTitle} • {data?.countryTitle}
-                        </p>
-                    </div>
-
-                    <div className="px-2 py-0.5 text-[8px] font-bold rounded-full bg-linear-to-r from-slate-200 to-orange-400/20 text-(--primary) flex items-center gap-1 capitalize">
-                        <HiOutlineFire className="w-2.5 h-2.5" />
-                        {data?.slug}
-                    </div>
-                </div>
-
                 {/* Price Section */}
-                <div className="bg-white border border-gray-200 rounded-md  p-3 text-[12px]">
+                {/* <div className="bg-white border border-gray-200 rounded-md  p-3 text-[12px]">
                     <h2 className="text-[14px] font-semibold mb-2">Pricing</h2>
                     <div className="grid grid-cols-2 gap-3">
                         <div className="p-2 bg-blue-50 rounded-lg">
@@ -48,24 +57,10 @@ export default function EsimDetails({ data }) {
                             <p className="text-[14px] font-bold">{data?.currency} {agent}</p>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Basic Details */}
-                <div className="bg-white border border-gray-200 rounded-md  p-3 space-y-1 text-[12px]">
-                    <h2 className="text-[14px] font-semibold">Basic Info</h2>
-                    <div className="grid grid-cols-2 gap-2">
-                        <p><b>Data:</b> {data?.data}</p>
-                        <p><b>Validity:</b> {data?.day} Days</p>
-                        <p><b>Amount MB:</b> {data?.amount}</p>
-                        <p><b>Unlimited:</b> {data?.isUnlimited ? "Yes" : "No"}</p>
-                        <p><b>eSIM Type:</b> {data?.esimType}</p>
-                        <p><b>Operator Type:</b> {data?.operatorType}</p>
-                        <p><b>Plan Type:</b> {data?.planType}</p>
-                        <p><b>Rechargeable:</b> {data?.rechargeability ? "Yes" : "No"}</p>
-                        <p><b>KYC Required:</b> {data?.isKycVerify ? "Yes" : "No"}</p>
-                        <p><b>Activation Policy:</b> {data?.activationPolicy}</p>
-                    </div>
-                </div>
+                <BasicInfo data={data }/> 
 
                 {/* Quick Info */}
                 {data?.shortInfo && (
@@ -74,7 +69,6 @@ export default function EsimDetails({ data }) {
                         <p className="text-[12px] text-gray-700">{data?.shortInfo}</p>
                     </div>
                 )}
-
 
                 {/* Network Coverage */}
                 <div className="bg-white border border-gray-200 rounded-md  p-3 text-[12px]">
@@ -143,30 +137,9 @@ export default function EsimDetails({ data }) {
             </div>
 
             <div className="fixed bottom-0 w-full">
-                <div className="p-4 bg-white border-t  flex flex-wrap justify-between items-center">
 
-                    {/* Number of Sim Cards */}
-                    <div className="flex items-center gap-2 mb-4">
-                        <span>Number of Sim Cards</span>
-                        <div className="flex items-center border rounded-md ml-auto">
-                            <button
-                                onClick={handleDecrement}
-                                className="px-2 py-1 text-lg font-bold"
-                            >
-                                -
-                            </button>
-                            <span className="px-4">{numSim}</span>
-                            <button
-                                onClick={handleIncrement}
-                                className="px-2 py-1 text-lg font-bold"
-                            >
-                                +
-                            </button>
-                        </div>
-                    </div>
+                <EsimCheckoutBar data={data} />
 
-                    <span>{totalPrice.toFixed(2)} USD</span>
-                </div>
             </div>
         </div>
     );
