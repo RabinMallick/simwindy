@@ -13,7 +13,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ title, onClick }) => {
   return (
     <header className="sticky top-0 z-50">
       {/* Mobile Header */}
-      <div className="relative md:hidden text-center bg-amber-50 ">
+      <div className="relative md:hidden text-center bg-linear-to-b from-(--peach)/30 to-(--light-gray) ">
         <div className="p-3 font-medium text-amber-900 text-[15px]">{title}</div>
 
         {/* Back Button */}

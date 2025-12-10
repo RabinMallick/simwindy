@@ -9,7 +9,7 @@ import { setCurrency } from '@/store/slice/currencySlice';
 
 export const Navbar: FC = () => {
   const dispatch = useDispatch();
-  const currency = useSelector((state: RootState) => state.currency.currency);
+   const { currency } = useSelector((state: RootState) => state.currency);
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
   const router = useRouter();

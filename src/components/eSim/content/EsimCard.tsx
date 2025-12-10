@@ -1,7 +1,7 @@
 "use client";
 
 import { RootState } from "@/store/store";
-import { useState, useEffect } from "react";
+import { useState  } from "react";
 import {
   HiOutlineCheckCircle,
   HiOutlineFire,
@@ -38,38 +38,31 @@ interface EsimData {
 }
 
 interface EsimCardProps {
-  data: EsimData;
-  selectedId: string;
-  onSelect: (id: string, price: number) => void;
+  data: EsimData; 
 }
 
 export const EsimCard: React.FC<EsimCardProps> = ({
-  data,
-  selectedId,
-  onSelect,
-}) => {
-  const currency = useSelector((state: RootState) => state.currency.currency);
+  data }) => {
+  const { currency } = useSelector((state: RootState) => state.currency);
 
   const priceNum = parseFloat(
     data?.prices?.recommended_retail_price?.[currency] ?? "0"
   );
-  const isSelected = selectedId === String(data?.id);
+
   const totalSimCards = 1;
 
   const [simItem, setSimItem] = useState<EsimData | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
-  const handleSelect = () => onSelect(String(data.id), priceNum);
 
   const coverageText = data?.coverages?.length
-    ? `${data.coverages.length} ${data.coverages.length === 1 ? "Country" : "Countries"}`
+    ? `${data.coverages.length === 1 ? "single country" : data.coverages.length + ' ' + "Countries"}`
     : data?.title;
 
-  const cardClasses = `relative w-full p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${
-    isSelected
-      ? "border-(--primary) ring-1 ring-(--primary)/50 bg-linear-to-b from-teal-50/80 to-white"
-      : "border-slate-200"
-  }`;
+  const cardClasses = `relative w-full p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border  cursor-pointer transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${simItem
+    ? "border-(--primary) ring-1 ring-(--primary)/50 bg-linear-to-b from-teal-50/80 to-white"
+    : "border-slate-200"
+    }`;
 
   /** Smooth Drawer Close */
   const handleDrawerClose = () => {
@@ -82,15 +75,17 @@ export const EsimCard: React.FC<EsimCardProps> = ({
 
   return (
     <>
-      <button className={cardClasses}>
+      <button className={cardClasses}  >
         <div
-          onClick={handleSelect}
+          onClick={() => { 
+            setSimItem(data);
+          }}
           className="flex justify-between md:grid md:grid-cols-1 gap-1 w-full"
         >
           {/* Left */}
           <div className="flex items-center gap-2">
             <div className="md:hidden">
-              {isSelected ? (
+              {simItem ? (
                 <HiOutlineCheckCircle className="w-4 h-4 text-(--primary)" />
               ) : (
                 <IoMdRadioButtonOff className="w-4 h-4 text-(--primary)" />
@@ -125,34 +120,15 @@ export const EsimCard: React.FC<EsimCardProps> = ({
                 )}
 
                 <span className="flex items-center gap-1 flex-wrap">
-                  {coverageText},
-                  <span className="capitalize md:hidden">({data?.slug})</span>
-
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSimItem(data);
-                    }}
-                    className="capitalize md:hidden px-1.5 bg-(--primary)/50 text-white rounded-full"
-                  >
-                    Details
-                  </span>
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSimItem(data);
-                    }}
-                    className="cursor-pointer px-1.5 bg-amber-400/20 rounded-full absolute right-3 hidden md:block"
-                  >
-                    Details
-                  </span>
+                  {coverageText}
+                  <span className="capitalize md:hidden">, ({data?.slug})</span>
                 </span>
               </div>
             </div>
           </div>
 
           {/* Right */}
-          <div className="md:mt-2 md:pt-2 md:border-t border-slate-100 flex items-center justify-end md:justify-between gap-2 cursor-pointer">
+          <div className="md:mt-2 md:pt-2 md:border-t border-slate-100 flex items-center justify-end md:justify-between gap-2  ">
             <span className="text-sm font-bold text-(--primary) flex items-baseline gap-1">
               {currency} {(priceNum * totalSimCards).toFixed(2)}
               <span className="text-[9px] font-light text-slate-400 hidden md:block">
@@ -160,11 +136,11 @@ export const EsimCard: React.FC<EsimCardProps> = ({
               </span>
             </span>
 
-            {isSelected && (
-              <div className="hidden md:block">
-                <HiOutlineCheckCircle className="w-4 h-4 text-(--primary)" />
-              </div>
-            )}
+            <span
+              className={`capitalize hidden md:block rounded-full text-[10px] px-1.5  rounded-full' ${simItem ? ' bg-(--primary)/80 text-white' : ' bg-(--primary)/5 text-(--primary)'}`}
+            >
+              Select
+            </span>
           </div>
         </div>
 
@@ -196,7 +172,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
             `}
           >
             <TopHeader title="E-Sim Details" onClick={handleDrawerClose} />
-            <EsimDetails data={simItem} currency={currency}/>
+            <EsimDetails data={simItem as any} />
           </div>
         </div>
       )}

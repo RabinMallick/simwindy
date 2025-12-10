@@ -29,7 +29,7 @@ interface DekstopFilterProps {
 export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state: RootState) => state.esim) as FiltersState;
-  const currency = useSelector((state: RootState) => state.currency.currency);
+   const { currency } = useSelector((state: RootState) => state.currency);
 
   const prices: number[] = Array.isArray(data)
     ? data

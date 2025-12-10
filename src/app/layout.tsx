@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
-import { Outfit } from "next/font/google";
-import { ScrollTop } from "@/components/common/scroll/ScrollTop";
+import { Outfit } from "next/font/google"; 
 
 import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
@@ -55,10 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Toast + Scroll */}
           <Toaster position="top-right" reverseOrder={false} />
-          
-          <div className="hidden md:block">
-            <ScrollTop />
-          </div>
+           
 
         </Providers>
       </body>

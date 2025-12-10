@@ -45,7 +45,7 @@ export const ScrollTop: FC = () => {
           className="
             fixed bottom-8 right-6 md:bottom-10 md:right-8
             w-12 h-12 flex items-center justify-center rounded-full
-            bg-(--primary) text-white shadow-lg z-50 cursor-pointer
+            bg-(--primary) text-white shadow-lg z-40 cursor-pointer
             hover:bg-var(--orange) transition-colors duration-300 
           "
           whileHover={{ scale: 1.1 }}

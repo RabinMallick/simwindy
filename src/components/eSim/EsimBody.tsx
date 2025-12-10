@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useGetEsimsMutation } from '@/store/api/apiSlice';
 import { RootState } from '@/store/store';
 import { EsimFilters, filterAndSortEsim } from '@/utils/esimSort';
@@ -18,11 +18,10 @@ export const EsimBody = () => {
     const code = searchParams.get("code") ?? "";
 
     const filters = useSelector((state: RootState) => state.esim);
-    const currency = useSelector((state: RootState) => state.currency.currency);
+    const { currency } = useSelector((state: RootState) => state.currency);
 
-    const [getEsims, { isLoading, isError, data }] = useGetEsimsMutation();
-    const [selectedPlanId, setSelectedPlanId] = useState<string>("");
-
+    const [getEsims, { isLoading, isError, data }] = useGetEsimsMutation(); 
+    
     const fetchParams = useMemo(() => ({
         userId: "ae3d7846-c94c-4171-97df-4bdbb4fa4b38",
         type: type === "Global" ? "GLOBAL" : type === "Regions" ? "REGIONAL" : "LOCAL",
@@ -52,17 +51,7 @@ export const EsimBody = () => {
         () => filterAndSortEsim(esim as any, filters as unknown as EsimFilters, currency),
         [esim, filters, currency]
     );
-    const selectedPrice = useMemo(() => {
-        const selectedPlan = sortedData.find(item => item.id === selectedPlanId);
-        const priceStr = selectedPlan?.prices?.recommended_retail_price?.[currency] ?? "0";
-        return parseFloat(priceStr);
-    }, [selectedPlanId, sortedData, currency]);
-
-    const formattedPrice = selectedPrice ? new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency,
-        minimumFractionDigits: 2,
-    }).format(selectedPrice) : "--";
+ 
 
     if (isError) {
         return (
@@ -80,7 +69,7 @@ export const EsimBody = () => {
             {/* RIGHT SIDE */}
             <div className="lg:col-span-8 xl:col-span-9 ">
 
-                <div className=" md:hidden">
+                <div className="md:hidden">
 
                     {/* Country */}
                     <div className="flex items-center gap-2 mb-1 p-2 bg-white rounded-md">
@@ -135,20 +124,14 @@ export const EsimBody = () => {
                                 Downloadable {destination} SIM card with prepaid data
                             </p>
                         </div>
-
-                        <div className="text-right shrink-0">
-                            <div className="text-2xl md:text-3xl font-bold text-slate-900">
-                                {formattedPrice}
-                            </div>
-                        </div>
+ 
                     </div>
 
                 </div>
                 {/* Esim Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
                     {sortedData.map(item => (
-                        <EsimCard key={item.id} data={item as any}
-                            selectedId={selectedPlanId} onSelect={setSelectedPlanId} />
+                        <EsimCard key={item.id} data={item as any} />
                     ))}
 
                     {isLoading && (
