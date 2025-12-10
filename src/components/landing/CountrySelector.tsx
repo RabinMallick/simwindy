@@ -80,7 +80,7 @@ export const CountrySelector: FC<CountrySelectorProps> = () => {
         </div>
 
         <div className="flex justify-end">
-          <Link href="more-countries" className="hover:underline text-xs">
+          <Link href="more-countries" className="text-sm text-gray-500 mt-1 md:mt-0 hover:underline">
             More Countries
           </Link>
         </div>

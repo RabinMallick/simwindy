@@ -20,8 +20,8 @@ export const EsimBody = () => {
     const filters = useSelector((state: RootState) => state.esim);
     const { currency } = useSelector((state: RootState) => state.currency);
 
-    const [getEsims, { isLoading, isError, data }] = useGetEsimsMutation(); 
-    
+    const [getEsims, { isLoading, isError, data }] = useGetEsimsMutation();
+
     const fetchParams = useMemo(() => ({
         userId: "ae3d7846-c94c-4171-97df-4bdbb4fa4b38",
         type: type === "Global" ? "GLOBAL" : type === "Regions" ? "REGIONAL" : "LOCAL",
@@ -51,7 +51,7 @@ export const EsimBody = () => {
         () => filterAndSortEsim(esim as any, filters as unknown as EsimFilters, currency),
         [esim, filters, currency]
     );
- 
+
 
     if (isError) {
         return (
@@ -69,29 +69,18 @@ export const EsimBody = () => {
             {/* RIGHT SIDE */}
             <div className="lg:col-span-8 xl:col-span-9 ">
 
-                <div className="md:hidden">
+                <div className="md:hidden mt-4">
 
                     {/* Country */}
                     <div className="flex items-center gap-2 mb-1 p-2 bg-white rounded-md">
-                        {code ? (
+                        {code && (
                             <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
-                        ) : (
-                            <Image
-                                src="/assets/earth.png"
-                                alt={`${type} eSIM`}
-                                width={145}
-                                height={80}
-                                className="w-auto h-7.5 border border-gray-200 rounded shrink-0"
-                                priority={type === "Global"}
-                            />
                         )}
                         <span className='bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate'>{destination} eSIM</span>
                     </div>
                     <p className="text-gray-600 text-[10px]  mb-5">
-                        Best for single country e-SIM 4G/5G Connectivity.
-                    </p>
-
-
+                        Downloadable {destination} eSIM card with prepaid data
+                    </p> 
 
                 </div>
 
@@ -99,17 +88,8 @@ export const EsimBody = () => {
                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4 ">
                         <div className="flex-1 min-w-0">
                             <h1 className="flex gap-2 items-baseline text-2xl md:text-3xl font-extrabold leading-tight">
-                                {code ? (
+                                {code && (
                                     <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
-                                ) : (
-                                    <Image
-                                        src="/assets/earth.png"
-                                        alt={`${type} eSIM`}
-                                        width={145}
-                                        height={80}
-                                        className="w-auto h-7.5 border border-gray-200 rounded shrink-0"
-                                        priority={type === "Global"}
-                                    />
                                 )}
 
                                 <span
@@ -124,7 +104,7 @@ export const EsimBody = () => {
                                 Downloadable {destination} SIM card with prepaid data
                             </p>
                         </div>
- 
+
                     </div>
 
                 </div>

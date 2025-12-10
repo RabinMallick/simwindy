@@ -5,6 +5,7 @@ import { FaChevronRight } from 'react-icons/fa';
 import { Button } from '../common/button/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface Country {
   name: string;
@@ -127,7 +128,7 @@ export default function Service() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-black">eSIMs</h2>
-        <p className="text-sm text-gray-500 mt-1 md:mt-0">Best eSIMs by country and region</p>
+        <Link  href="more-countries" className="text-sm text-gray-500 mt-1 md:mt-0 hover:underline">Best eSIMs by country and region</Link>
       </div>
 
       {/* Tabs */}

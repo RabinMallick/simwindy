@@ -10,7 +10,7 @@ import {
 } from "react-icons/hi";
 import { IoMdRadioButtonOff } from "react-icons/io";
 import { useSelector } from "react-redux";
-import EsimDetails from "../EsimDetails";
+import EsimDetails from "./EsimDetails";
 import { TopHeader } from "@/components/include/TopHeader";
 
 interface EsimData {
@@ -59,7 +59,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
     ? `${data.coverages.length === 1 ? "single country" : data.coverages.length + ' ' + "Countries"}`
     : data?.title;
 
-  const cardClasses = `relative w-full p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border  cursor-pointer transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${simItem
+  const cardClasses = `relative w-full  px-3 p-1.5 md:p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border  cursor-pointer transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${simItem
     ? "border-(--primary) ring-1 ring-(--primary)/50 bg-linear-to-b from-teal-50/80 to-white"
     : "border-slate-200"
     }`;
@@ -171,8 +171,8 @@ export const EsimCard: React.FC<EsimCardProps> = ({
               ${isClosing ? "drawer-close" : "drawer-open"}
             `}
           >
-            <TopHeader title="E-Sim Details" onClick={handleDrawerClose} />
-            <EsimDetails data={simItem as any} />
+            <TopHeader title="E-Sim Details" onClick={handleDrawerClose} cross={true}/>
+            <EsimDetails data={simItem as any}  onClick={handleDrawerClose} />
           </div>
         </div>
       )}

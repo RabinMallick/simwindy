@@ -1,9 +1,9 @@
 "use client";
 
-import EsimCheckoutBar from "./content/EsimCheckoutBar";
+import EsimCheckoutBar from "./EsimCheckoutBar";
 import { useSearchParams } from "next/navigation";
-import { GiWorld } from "react-icons/gi";
-import BasicInfo from "./content/BasicInfo";
+import BasicInfo from "./BasicInfo";
+import { RxCrossCircled } from "react-icons/rx";
 
 // ----------------------
 // Types
@@ -43,8 +43,8 @@ export interface EsimData {
 
 interface EsimDetailsProps {
   data: EsimData;
+  onClick: () => void;   // <-- Add this line
 }
-
 // ----------------------
 // SectionHeader Component
 // ----------------------
@@ -57,7 +57,7 @@ const SectionHeader = ({ title }: { title: string }) => (
 // ----------------------
 // Main Component
 // ----------------------
-export default function EsimDetails({ data }: EsimDetailsProps) {
+export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
   const searchParams = useSearchParams();
   const destination = searchParams.get("destination") ?? "";
   const code = searchParams.get("code") ?? "";
@@ -71,7 +71,7 @@ export default function EsimDetails({ data }: EsimDetailsProps) {
     countries,
     qrInstallation,
     manualInstallation,
-  } = data || {};
+  } = data ?? {};
 
   const coverageText = coverages?.length
     ? coverages.length === 1
@@ -83,22 +83,29 @@ export default function EsimDetails({ data }: EsimDetailsProps) {
     <div className="min-h-100 max-h-[calc(100vh-80px)] overflow-y-auto text-xs">
       {/* Header */}
       <div className="px-4 border-b-2 border-(--primary) pt-2.5 md:sticky md:top-0 md:py-2 md:pt-3 bg-white">
-        <div className="flex items-center text-sm md:text-xl font-bold gap-2 mb-1 bg-white">
-          {code && (
-            <span className={`fi fi-${code.toLowerCase()} border border-gray-200 md:w-10! w-6.5! md:h-7 shrink-0`}></span>
-          )}
-          <span className="bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate">
-            {destination} eSIM
-            
-            {data?.slug?.toLowerCase() !== destination?.toLowerCase() &&
-             <span className="text-sm capitalize ps-1">({data?.slug})</span>
-             }
-          </span>
+        <div className="flex justify-between items-center">
+          <div className="">
+            <div className="flex items-center text-sm md:text-xl font-bold gap-2 mb-1 bg-white">
+              {code && (
+                <span className={`fi fi-${code.toLowerCase()} border border-gray-200 md:w-10! w-6.5! md:h-7 shrink-0`}></span>
+              )}
+              <span className="bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate">
+                {destination} eSIM
+
+                {data?.slug?.toLowerCase() !== destination?.toLowerCase() &&
+                  <span className="text-sm capitalize ps-1">({data?.slug})</span>
+                }
+              </span>
+            </div>
+            <p className="text-gray-600 text-[10px] pb-2" >
+              Best for {coverageText ?? "single country"} e-SIM 4G/5G Connectivity.
+            </p>
+          </div>
+          <div onClick={onClick} className="hidden md:block text-(--primary) text-xl hover:text-red-500 cursor-pointer"><RxCrossCircled /></div>
         </div>
-        <p className="text-gray-600 text-[10px] pb-2">
-          Best for {coverageText ?? "single country"} e-SIM 4G/5G Connectivity.
-        </p>
       </div>
+
+
 
       <div className="p-4 space-y-6 mb-40 md:mb-4">
         {/* Basic Details */}
