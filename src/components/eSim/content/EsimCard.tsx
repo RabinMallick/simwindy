@@ -1,7 +1,7 @@
 "use client";
 
 import { RootState } from "@/store/store";
-import { useState  } from "react";
+import { useState } from "react";
 import {
   HiOutlineCheckCircle,
   HiOutlineFire,
@@ -12,6 +12,7 @@ import { IoMdRadioButtonOff } from "react-icons/io";
 import { useSelector } from "react-redux";
 import EsimDetails from "./EsimDetails";
 import { TopHeader } from "@/components/include/TopHeader";
+import { useSearchParams } from "next/navigation";
 
 interface EsimData {
   id: string;
@@ -38,16 +39,23 @@ interface EsimData {
 }
 
 interface EsimCardProps {
-  data: EsimData; 
+  data: EsimData;
 }
 
 export const EsimCard: React.FC<EsimCardProps> = ({
   data }) => {
+
+  const params = useSearchParams();
   const { currency } = useSelector((state: RootState) => state.currency);
 
   const priceNum = parseFloat(
     data?.prices?.recommended_retail_price?.[currency] ?? "0"
   );
+  
+
+  const code = params.get('code');
+  const destination = params.get('destination');
+
 
   const totalSimCards = 1;
 
@@ -56,7 +64,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
 
 
   const coverageText = data?.coverages?.length
-    ? `${data.coverages.length === 1 ? "single country" : data.coverages.length + ' ' + "Countries"}`
+    ? `${data.coverages.length === 1 ? "Single country" : data.coverages.length + ' ' + "Countries"}`
     : data?.title;
 
   const cardClasses = `relative w-full  px-3 p-1.5 md:p-3 md:pb-0 rounded-lg bg-white/95 backdrop-blur-md border  cursor-pointer transition-all duration-300 flex flex-col justify-between gap-2 hover:-translate-y-0.5 ${simItem
@@ -77,7 +85,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
     <>
       <button className={cardClasses}  >
         <div
-          onClick={() => { 
+          onClick={() => {
             setSimItem(data);
           }}
           className="flex justify-between md:grid md:grid-cols-1 gap-1 w-full"
@@ -97,7 +105,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
                 {data?.data || data?.title}
               </h3>
 
-              <div className="flex flex-wrap gap-1 items-center text-[9px] text-slate-500">
+              <div className="flex flex-wrap gap-1 items-center text-[11px] text-slate-500">
                 <span>Valid {data?.day ?? 0} days</span>
                 <span className="flex items-center gap-0.5">
                   <HiOutlinePhone className="w-3 h-3" />
@@ -109,15 +117,9 @@ export const EsimCard: React.FC<EsimCardProps> = ({
                 </span>
               </div>
 
-              <div className="flex items-center gap-1 text-[9px] text-slate-600 mt-1">
-                {data?.countryFlag && (
-                  <div
-                    className="h-4 w-7 rounded bg-cover bg-center border border-slate-200 hidden md:block"
-                    style={{
-                      backgroundImage: `url(https://airalo.com/images/${data.countryFlag})`,
-                    }}
-                  />
-                )}
+              <div className="flex items-center gap-1 text-[11px] text-slate-600 mt-1"> 
+
+                {code && <span className={`fi fi-${code.toLowerCase()}`}></span>} <span className="hidden md:block">{destination},</span> 
 
                 <span className="flex items-center gap-1 flex-wrap">
                   {coverageText}
@@ -131,7 +133,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
           <div className="md:mt-2 md:pt-2 md:border-t border-slate-100 flex items-center justify-end md:justify-between gap-2  ">
             <span className="text-sm font-bold text-(--primary) flex items-baseline gap-1">
               {currency} {(priceNum * totalSimCards).toFixed(2)}
-              <span className="text-[9px] font-light text-slate-400 hidden md:block">
+              <span className="text-[11px] font-light text-slate-400 hidden md:block">
                 / {totalSimCards} SIM
               </span>
             </span>
@@ -171,8 +173,8 @@ export const EsimCard: React.FC<EsimCardProps> = ({
               ${isClosing ? "drawer-close" : "drawer-open"}
             `}
           >
-            <TopHeader title="E-Sim Details" onClick={handleDrawerClose} cross={true}/>
-            <EsimDetails data={simItem as any}  onClick={handleDrawerClose} />
+            <TopHeader title="E-Sim Details" onClick={handleDrawerClose} cross={true} />
+            <EsimDetails data={simItem as any} onClick={handleDrawerClose} />
           </div>
         </div>
       )}

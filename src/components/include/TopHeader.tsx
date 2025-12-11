@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
 import { useRouter } from 'next/navigation';

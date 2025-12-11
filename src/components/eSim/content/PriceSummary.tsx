@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/common/button/Button';
 import { RootState } from '@/store/store';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +15,7 @@ const PriceSummary = () => {
   const dataAmount = params.get('data');
   const coverages = params.get('coverages');
   const day = params.get('day');
-  
+
   const BDT = params.get('BDT');
   const USD = params.get('USD');
   const AED = params.get('AED');
@@ -77,6 +78,23 @@ const PriceSummary = () => {
       >
         Pay Now
       </Button>
+
+
+
+      <p className="text-[12px]">
+        By continuing to payment, you agree to our{' '}
+        <Link href="/terms-conditions" className="text-(--primary) underline">
+          Terms and Conditions
+        </Link>{' '}
+        and{' '}
+        <Link href="/privacy-policy" className="text-(--primary) underline">
+          Privacy Policy
+        </Link>{' '}
+        in advance.
+      </p>
+
+
+
     </div>
   );
 };
