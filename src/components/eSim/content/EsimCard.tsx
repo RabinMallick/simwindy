@@ -137,7 +137,7 @@ export const EsimCard: React.FC<EsimCardProps> = ({
             </span>
 
             <span
-              className={`capitalize hidden md:block rounded-full text-[10px] px-1.5  rounded-full' ${simItem ? ' bg-(--primary)/80 text-white' : ' bg-(--primary)/5 text-(--primary)'}`}
+              className={`capitalize hidden md:block rounded-full text-[12px] px-1.5  rounded-full' ${simItem ? ' bg-(--primary)/80 text-white' : ' bg-(--primary)/5 text-(--primary)'}`}
             >
               Select
             </span>

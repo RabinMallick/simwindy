@@ -50,7 +50,7 @@ interface EsimDetailsProps {
 // ----------------------
 const SectionHeader = ({ title }: { title: string }) => (
   <div className="w-full flex items-center justify-between p-2 md:px-4 bg-gray-50 hover:bg-gray-100 transition-colors">
-    <h2 className="text-[12px] md:text-[14px] font-semibold text-gray-800">{title}</h2>
+    <h2 className="text-[13px] md:text-[14px] font-semibold text-gray-800">{title}</h2>
   </div>
 );
 
@@ -97,7 +97,7 @@ export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
                 }
               </span>
             </div>
-            <p className="text-gray-600 text-[10px] pb-2" >
+            <p className="text-gray-600 text-[12px] pb-2" >
               Best for {coverageText ?? "single country"} e-SIM 4G/5G Connectivity.
             </p>
           </div>
@@ -115,17 +115,17 @@ export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
         {shortInfo && (
           <div>
             <SectionHeader title="Short Info" />
-            <p className="text-[10px] md:text-[12px] text-gray-700 p-2 md:px-4">{shortInfo}</p>
+            <p className="text-[12px] md:text-[13px] text-gray-700 p-2 md:px-4">{shortInfo}</p>
           </div>
         )}
 
         {/* APN Info */}
         <div>
           <SectionHeader title="APN Settings" />
-          <p className="text-[10px] md:text-[12px] text-gray-700 px-2 mb-0.5 md:px-4 mt-1 capitalize">
+          <p className="text-[12px] md:text-[13px] text-gray-700 px-2 mb-0.5 md:px-4 mt-1 capitalize">
             <b>iOS:</b> {apn?.ios?.apn_type}
           </p>
-          <p className="text-[10px] md:text-[12px] text-gray-700 px-2 md:px-4 capitalize">
+          <p className="text-[12px] md:text-[13px] text-gray-700 px-2 md:px-4 capitalize">
             <b>Android:</b> {apn?.android?.apn_type}
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
         {otherInfo && (
           <div>
             <SectionHeader title="Other Info" />
-            <p className="text-[10px] md:text-[12px] text-gray-700 p-2 md:px-4">{otherInfo}</p>
+            <p className="text-[12px] md:text-[13px] text-gray-700 p-2 md:px-4">{otherInfo}</p>
           </div>
         )}
 
@@ -145,9 +145,9 @@ export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-3">
               {coverages.map((c: Coverage, i: number) => (
                 <div key={i} className="border border-gray-100 pb-2 rounded-md p-2 hover:bg-gray-100">
-                  <p className="font-semibold text-[12px]">{c.name}</p>
+                  <p className="font-semibold text-[13px]">{c.name}</p>
                   {c.networks.map((n: Network, idx: number) => (
-                    <p key={idx} className="text-[10px] text-gray-700">
+                    <p key={idx} className="text-[12px] text-gray-700">
                       {n.name} — {n.types.join(", ")}
                     </p>
                   ))}
@@ -177,7 +177,7 @@ export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
           <div>
             <SectionHeader title="QR Installation" />
             <div
-              className="prose prose-sm text-[10px] md:text-[12px] text-gray-700 p-2 md:px-4"
+              className="prose prose-sm text-[12px] md:text-[13px] text-gray-700 p-2 md:px-4"
               dangerouslySetInnerHTML={{ __html: qrInstallation.replace(/airalo/gi, "simwindy") }}
             />
           </div>
@@ -188,7 +188,7 @@ export default function EsimDetails({ data, onClick }: EsimDetailsProps) {
           <div>
             <SectionHeader title="Manual Installation" />
             <div
-              className="prose prose-sm text-[10px] md:text-[12px] text-gray-700 p-2 md:px-4"
+              className="prose prose-sm text-[12px] md:text-[13px] text-gray-700 p-2 md:px-4"
               dangerouslySetInnerHTML={{ __html: manualInstallation.replace(/airalo/gi, "simwindy") }}
             />
           </div>

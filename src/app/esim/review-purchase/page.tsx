@@ -1,129 +1,199 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState } from "react";
+import { Suspense } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { increment, decrement } from '@/store/slice/checkoutSlice';
 
-export default function ReviewAndPurchase()  {
-  const [numSim, setNumSim] = useState(1);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+import PriceSummary from '@/components/eSim/content/PriceSummary';
+import { Package } from '@/components/eSim/content/Package';
+import EsimHeader from '@/components/eSim/content/EsimHeader';
 
-  const country = { name: "Bangladesh", flag: "/path/to/bd-flag.png" }; // Replace with actual flag path
-  const packageDetails = {
-    coverage: country.name,
-    data: "1 GB",
-    validity: "3 days",
-    price: 3,
+import { Formik, Form, FieldArray, FormikErrors } from 'formik';
+import * as Yup from 'yup';
+import clsx from 'clsx';
+import Input from '@/components/common/input/Input';
+import PhoneInputField from '@/components/common/input/PhoneInputField';
+import { TopHeader } from '@/components/include/TopHeader';
+
+type UserType = {
+  name: string;
+  email: string;
+  phone: string;
+};
+
+export default function ReviewAndPurchase() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { numSim } = useSelector((state: RootState) => state.checkout);
+
+  const initialValues = {
+    users: Array.from({ length: numSim }, () => ({
+      name: '',
+      email: '',
+      phone: '',
+    })),
   };
 
-  const handleIncrement = () => setNumSim((prev) => prev + 1);
-  const handleDecrement = () => setNumSim((prev) => Math.max(1, prev));
+  const validationSchema = Yup.object().shape({
+    users: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().required('Required Full Name'),
+        email: Yup.string().email('Invalid email').required('Required Email'),
+        phone: Yup.string().required('Required Phone Number'),
+      })
+    ),
+  });
 
-  const totalPrice = packageDetails.price * numSim;
+  // -------------------------------
+  // Helper Error Extractor
+  // -------------------------------
+  const getFieldError = (
+    errors: FormikErrors<{ users: UserType[] }>,
+    index: number,
+    field: keyof UserType
+  ) => {
+    const row = errors?.users?.[index];
+    return typeof row === 'object' ? (row?.[field] as string) : '';
+  };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-[#f9f2e7] min-h-screen">
-      <h2 className="text-center font-semibold mb-4">Review and Purchase</h2>
+    <Suspense fallback={<p className="text-sm text-gray-500">Loading package...</p>}>
 
-      {/* Country */}
-      <div className="flex items-center gap-2 mb-4 p-2 bg-white rounded-md">
-        <Image src={country.flag} alt={country.name} width={100} height={100} className="w-6 h-4 rounded" />
-        <span>{country.name}</span>
+      <div className="max-w-5xl mx-auto md:p-6 min-h-screen">
+        <TopHeader title="Review and Purchase" />
+        <Formik
+          enableReinitialize
+          initialValues={{
+            users: Array.from({ length: numSim }, (_, i) => initialValues.users[i]),
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => console.log('Form submitted:', values)}
+        >
+          {({ values, errors, touched, setFieldValue }) => (
+            <Form className="grid grid-cols-12 gap-4">
+              {/* Left Side */}
+              <div className="col-span-12 sm:col-span-7 lg:col-span-8 bg-white md:border border-gray-100 rounded-md">
+                <EsimHeader />
+
+                <div className="p-4 lg:p-6 space-y-4">
+                  <Package />
+
+                  {/* SIM Counter */}
+                  <div className="flex items-center justify-between mt-4 bg-linear-to-r from-(--primary) to-(--peach) px-3 py-1 rounded">
+                    <span className="text-[13px] font-medium text-white">Number of SIMs</span>
+
+                    <div className="flex items-center border border-white rounded overflow-hidden text-sm">
+                      <button
+                        type="button"
+                        onClick={() => dispatch(decrement())}
+                        disabled={numSim <= 1}
+                        className={clsx(
+                          'px-2 py-0.5 bg-white text-gray-700 font-bold hover:bg-gray-100 transition',
+                          numSim <= 1 && 'bg-gray-50 cursor-not-allowed'
+                        )}
+                      >
+                        −
+                      </button>
+
+                      <div className="w-10 text-center">{numSim}</div>
+
+                      <button
+                        type="button"
+                        onClick={() => dispatch(increment())}
+                        disabled={numSim >= 9}
+                        className="px-2 py-0.5 bg-white text-gray-700 font-bold hover:bg-gray-100 transition"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* User Form List */}
+                  <FieldArray name="users">
+                    {() =>
+                      values.users.map((user, index) => (
+                        <div
+                          key={index}
+                          className="bg-white border border-gray-100 rounded-md p-4 pt-2 md:bg-gray-50/50 space-y-3 text-sm"
+                        >
+                          <h3 className="font-semibold text-[13px] mb-2">
+                            User Details (eSim-{index + 1})
+                          </h3>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {/* Full Name */}
+                            <Input
+                              title="Full Name"
+                              type="text"
+                              field="name"
+                              value={user.name}
+                              onChange={(field, val) =>
+                                setFieldValue(`users[${index}].${field}`, val)
+                              }
+                              error={getFieldError(errors, index, 'name')}
+                              showError={() =>
+                                Boolean(
+                                  getFieldError(errors, index, 'name') &&
+                                  touched.users?.[index]?.name
+                                )
+                              }
+                              no
+                            />
+
+                            {/* Email */}
+                            <Input
+                              title="Email"
+                              type="email"
+                              field="email"
+                              value={user.email}
+                              onChange={(field, val) =>
+                                setFieldValue(`users[${index}].${field}`, val)
+                              }
+                              error={getFieldError(errors, index, 'email')}
+                              showError={() =>
+                                Boolean(
+                                  getFieldError(errors, index, 'email') &&
+                                  touched.users?.[index]?.email
+                                )
+                              }
+                              no
+                            />
+
+                            {/* Phone */}
+                            <div className="md:col-span-2">
+                              <PhoneInputField
+                                label="Phone"
+                                value={user.phone}
+                                onChange={(val) =>
+                                  setFieldValue(`users[${index}].phone`, val)
+                                }
+                                error={getFieldError(errors, index, 'phone')}
+                                showError={Boolean(
+                                  getFieldError(errors, index, 'phone') &&
+                                  touched.users?.[index]?.phone
+                                )}
+                                no
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </FieldArray>
+                </div>
+              </div>
+
+              {/* Right Side */}
+              {/* <div className="hidden sm:block col-span-12 sm:col-span-5 lg:col-span-4 bg-white md:border border-gray-100 rounded-md">
+                <PriceSummary />
+              </div> */}
+              <div className=" bg-linear-to-b  from-(--peach)/50 to-gray-100/50  rounded-t-4xl col-span-12 sm:col-span-5 lg:col-span-4 bg-white md:border border-gray-100 md:rounded-md ">
+                <PriceSummary />
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
-
-      {/* Number of Sim Cards */}
-      <div className="flex items-center gap-2 mb-4">
-        <span>Number of Sim Cards</span>
-        <div className="flex items-center border rounded-md ml-auto">
-          <button
-            onClick={handleDecrement}
-            className="px-2 py-1 text-lg font-bold"
-          >
-            -
-          </button>
-          <span className="px-4">{numSim}</span>
-          <button
-            onClick={handleIncrement}
-            className="px-2 py-1 text-lg font-bold"
-          >
-            +
-          </button>
-        </div>
-      </div>
-
-      {/* Package */}
-      <div className="mb-4 p-4 bg-white rounded-md space-y-2">
-        <div className="flex justify-between">
-          <span className="flex items-center gap-1">Coverage</span>
-          <span>{packageDetails.coverage}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Data</span>
-          <span>{packageDetails.data}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Validity</span>
-          <span>{packageDetails.validity}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Price</span>
-          <span>{packageDetails.price} USD</span>
-        </div>
-      </div>
-
-      {/* Billing Information */}
-      <div className="mb-4 p-4 bg-white rounded-md space-y-2">
-        <input
-          type="text"
-          placeholder="Enter name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded-md"
-        />
-        <input
-          type="email"
-          placeholder="Enter email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 border rounded-md"
-        />
-        <div className="flex gap-2">
-          <select className="p-2 border rounded-md">
-            <option value="+880">+880</option>
-          </select>
-          <input
-            type="tel"
-            placeholder="Enter mobile number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="flex-1 p-2 border rounded-md"
-          />
-        </div>
-      </div>
-
-      {/* Order Summary */}
-      <div className="mb-4 p-4 bg-white rounded-md flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Image src={country.flag} alt={country.name} width={100} height={100} className="w-6 h-4 rounded" />
-          <span>
-            {packageDetails.data} - {packageDetails.validity}
-          </span>
-          <span>x{numSim}</span>
-        </div>
-        <span>{totalPrice.toFixed(2)} USD</span>
-      </div>
-
-      <p className="text-xs text-gray-500 mb-4">
-        By continuing to payment agree to our{" "}
-        <span className="underline">Terms and Conditions</span> and{" "}
-        <span className="underline">Privacy policy</span>
-      </p>
-
-      {/* Next Payment Button */}
-      <button className="w-full bg-orange-500 text-white py-3 rounded-md font-semibold">
-        Next to Payment
-      </button>
-    </div>
+    </Suspense>
   );
-};
+}

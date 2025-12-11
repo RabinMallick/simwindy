@@ -1,27 +1,45 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+// checkoutSlice.ts
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+}
 
 interface CheckoutState {
   numSim: number;
+  users: User[];
 }
 
 const initialState: CheckoutState = {
   numSim: 1,
+  users: [{ name: "", email: "", phone: "" }],
 };
 
-const checkoutSlice = createSlice({
-  name: 'checkout',
+export const checkoutSlice = createSlice({
+  name: "checkout",
   initialState,
   reducers: {
-    increment: (state, action: PayloadAction<number | undefined>) => {
-      const value = action.payload ?? 1; // default increment by 1
-      state.numSim = Math.min(9, state.numSim + value);
+    increment: (state) => {
+      state.numSim += 1;
+      state.users.push({ name: "", email: "", phone: "" }); // add a new user
     },
-    decrement: (state, action: PayloadAction<number | undefined>) => {
-      const value = action.payload ?? 1; // default decrement by 1
-      state.numSim = Math.max(1, state.numSim - value);
+    decrement: (state) => {
+      if (state.numSim > 1) {
+        state.numSim -= 1;
+        state.users.pop(); // remove last user
+      }
+    },
+    setUserField: (
+      state,
+      action: PayloadAction<{ index: number; field: keyof User; value: string }>
+    ) => {
+      const { index, field, value } = action.payload;
+      state.users[index][field] = value;
     },
   },
 });
 
-export const { increment, decrement } = checkoutSlice.actions;
+export const { increment, decrement, setUserField } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

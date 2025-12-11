@@ -7,8 +7,8 @@ import { EsimFilters, filterAndSortEsim } from '@/utils/esimSort';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { DekstopFilter } from './content/DekstopFilter';
-import { EsimCard } from './content/EsimCard';
-import Image from 'next/image';
+import { EsimCard } from './content/EsimCard';       
+ 
 
 export const EsimBody = () => {
 
@@ -78,7 +78,7 @@ export const EsimBody = () => {
                         )}
                         <span className='bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate'>{destination} eSIM</span>
                     </div>
-                    <p className="text-gray-600 text-[10px]  mb-5">
+                    <p className="text-gray-600 text-[12px]  mb-5">
                         Downloadable {destination} eSIM card with prepaid data
                     </p> 
 

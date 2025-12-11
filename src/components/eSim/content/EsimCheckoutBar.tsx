@@ -4,18 +4,30 @@ import { Button } from '@/components/common/button/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/store/store';
 import { decrement, increment } from '@/store/slice/checkoutSlice';
+import { useRouter } from 'next/navigation';
 
 interface EsimCheckoutBarProps {
     data: any;
 }
 
 export default function EsimCheckoutBar({ data }: EsimCheckoutBarProps) {
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
-    const { currency, symbol } = useSelector((state: RootState) => state.currency);
+    const { currency  } = useSelector((state: RootState) => state.currency);
     const numSim = useSelector((state: RootState) => state.checkout.numSim);
 
     const retail = Number(data?.prices?.recommended_retail_price?.[currency ?? data?.currency] ?? 0);
-    const totalPrice = retail * numSim;
+    const totalPrice = retail * numSim;   
+
+     const coverageText = data?.coverages?.length
+    ? data?.coverages.length === 1
+      ? "single country"
+      : `${data?.coverages.length} Countries`
+    : '';
+
+    const BDT = data?.prices?.recommended_retail_price?.["BDT"]  
+    const USD = data?.prices?.recommended_retail_price?.["USD"]  
+    const AED = data?.prices?.recommended_retail_price?.["AED"]  
 
     return (
         <div className="
@@ -30,12 +42,12 @@ export default function EsimCheckoutBar({ data }: EsimCheckoutBarProps) {
             {/* LEFT SECTION */}
             <div className="flex flex-col">
                 <p className="text-lg md:text-xl font-semibold text-gray-800 leading-tight">
-                    Total: <span className="font-bold">{symbol}{totalPrice.toFixed(2)}</span>
+                    Total: <span className="font-bold">{currency} {totalPrice.toFixed(2)}</span>
                 </p>
 
                 {/* SIM Counter */}
                 <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[12px] font-medium text-gray-500">SIMs:</span>
+                    <span className="text-[13px] font-medium text-gray-500">SIMs:</span>
 
                     <div className="
                         flex items-center overflow-hidden
@@ -79,6 +91,27 @@ export default function EsimCheckoutBar({ data }: EsimCheckoutBarProps) {
 
             {/* BUY BUTTON */}
             <Button
+                onClick={() => {
+                    const query = new URLSearchParams({
+                        id: data?.id,
+                        title: data?.title,
+                        data: data?.data,
+                        text: data?.text ?? '',
+                        voice: data?.voice ?? '',
+                        day: data?.day, 
+                        esimType: data?.esimType, 
+                        operatorType: data?.operatorType, 
+                        country: data?.countryTitle,  
+                         
+                        code: data?.countryCode, 
+                        coverages: coverageText,
+                        BDT: BDT,
+                        AED: AED,
+                        USD: USD,
+                    });
+
+                    router.push(`/esim/review-purchase?${query.toString()}`);
+                }}
                 className="
                     bg-(--primary) text-white
                     px-6 py-3 md:py-2  shadow-sm

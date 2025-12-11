@@ -160,7 +160,7 @@ export const EsimTab = () => {
             key={index}
             
             onClick={() => handleItemClick(country)}
-            className="bg-white text-[12px] flex justify-between items-center  p-3 rounded-md border border-gray-200"
+            className="bg-white text-[13px] flex justify-between items-center  p-3 rounded-md border border-gray-200"
           >
             <div className="flex items-center  gap-3">
              {country.code && <span className={`fi fi-${country.code.toLowerCase()} text-3xl`}></span>}
@@ -171,7 +171,7 @@ export const EsimTab = () => {
               <span className="font-medium text-sm">{country.name}</span>
             </div>
             <div className="text-right">
-              <p className="text-gray-500 text-[10px]"> {country.countries ? `Countries ${country.countries}` : 'Starting from'}</p>
+              <p className="text-gray-500 text-[12px]"> {country.countries ? `Countries ${country.countries}` : 'Starting from'}</p>
               <p className="font-semibold ">USD {country.price.toFixed(2)}</p>
             </div>
           </div>

@@ -48,12 +48,12 @@ export const Destinations: FC = () => {
             {/* Navigation Arrows (hidden on small screens) */}
             <div className="hidden md:flex absolute inset-y-0 left-0 items-center z-20 mt-15 ">
                 <button className="swiper-button-prev p-2 bg-[#ffffff50] shadow rounded-full transition-all duration-200 active:scale-95 hover:opacity-90">
-                    <FiChevronLeft className="text-[10px] text-gray-700" />
+                    <FiChevronLeft className="text-[12px] text-gray-700" />
                 </button>
             </div>
             <div className="hidden md:flex absolute inset-y-0 right-0 items-center z-20 mt-15 ">
                 <button className="swiper-button-next p-2 bg-[#ffffff50] shadow rounded-full transition-all duration-200 active:scale-95 hover:opacity-90">
-                    <FiChevronRight className="text-[10px] text-gray-700" />
+                    <FiChevronRight className="text-[12px] text-gray-700" />
                 </button>
             </div>
 
