@@ -14,7 +14,7 @@ export default function Home() {
 
       <div className="hidden md:block">
         {/* Hero Section */}
-        <section id="" className="scroll-offset bg-linear-to-b from-(--peach) to-(--light-gray)">
+        <section id="" className="scroll-offset bg-linear-to-b from-(--from) to-(--to)">
           <Hero />
         </section>
 

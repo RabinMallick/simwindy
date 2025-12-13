@@ -30,8 +30,8 @@
   --black: #102A2D;
   --grayish-blue: #4a7a8631;
 
-  --peach: #FAE0C2;
-  --light-gray: #f3f3f3;
+  --from: #FAE0C2;
+  --to:#ffffff;
 }
 
 /* ============================
@@ -70,11 +70,11 @@ html {
 
 /* Optional utility classes */
 .bg-peach {
-  background-color: var(--peach);
+  background-color: var(--from);
 }
 
 .bg-light-gray {
-  background-color: var(--light-gray);
+  background-color: var(--to);
 }
 
 .text-primary {

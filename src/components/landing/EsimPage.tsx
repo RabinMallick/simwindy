@@ -7,7 +7,7 @@ import { EsimTab } from "./content/EsimTab";
 export default function EsimPage() {
 
     return (
-        <div className="min-h-screen  bg-linear-to-b from-(--peach)/30 to-(--light-gray) pb-24">
+        <div className="min-h-screen  bg-linear-to-b from-(--from)/30 to-(--to) pb-24">
 
             <TopNavigation />
 

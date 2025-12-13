@@ -1,6 +1,7 @@
 'use client'
 
 import { RootState } from "@/store/store";
+import Link from "next/link";
 import React from "react";
 import { HiOutlinePhone } from "react-icons/hi";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
@@ -44,7 +45,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
   const price = rawPrice ? Number(rawPrice).toFixed(2) : "0.00";
 
   return (
-    <div className="relative w-full px-3 py-2 rounded-md bg-white border border-slate-200 cursor-pointer transition-all duration-300 flex flex-col gap-2 hover:-translate-y-0.5 hover:shadow-md">
+    <Link href={`my-esim/details?id=${data?.id}`} className="relative w-full px-3 py-2 rounded-md bg-white border border-slate-200 cursor-pointer transition-all duration-300 flex flex-col gap-2 hover:-translate-y-0.5 hover:shadow-md">
 
       {/* Header */}
       <div className="flex justify-between items-center gap-3">
@@ -100,7 +101,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

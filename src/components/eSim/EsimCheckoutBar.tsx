@@ -32,7 +32,7 @@ export default function EsimCheckoutBar({ data }: EsimCheckoutBarProps) {
     return (
         <div className="
             fixed bottom-0 left-0 right-0
-            bg-white/90 backdrop-blur-md
+            bg-linear-to-b from-(--from) to-(--to)  backdrop-blur-md
             border-t border-gray-200 
             shadow-[0_-2px_20px_rgba(0,0,0,0.05)]
             px-4 py-4 md:px-8 

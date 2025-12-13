@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
     optimizeCss: false, // disable for export
   },
 
-  images: {
-    domains: ['https://picsum.photos'],
+  images: { 
+    domains: ['picsum.photos'], // ✅ only domain
     unoptimized: true,
   },
 

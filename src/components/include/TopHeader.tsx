@@ -21,7 +21,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   return (
     <header className="sticky top-0 z-50">
       {/* Mobile Header */}
-      <div className="relative md:hidden text-center bg-linear-to-b from-(--peach)/30 to-(--light-gray) ">
+      <div className="relative md:hidden text-center bg-(--from) border-b border-amber-900/2 ">
         <div className="p-3 font-medium text-amber-900 text-[15px]">
           {title}
         </div>

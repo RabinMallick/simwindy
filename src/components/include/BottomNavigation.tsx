@@ -10,7 +10,7 @@ export const BottomNavigation = () => {
     const router = useRouter();
 
     return (
-        <nav className="fixed bottom-0 left-0 w-full bg-(--light-gray) flex justify-around py-3 z-50">
+        <nav className="fixed bottom-0 left-0 w-full bg-(--to) flex justify-around py-3 z-50">
             <button 
                 className="flex flex-col items-center text-gray-400"
                 onClick={() => router.push('/')}

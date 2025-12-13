@@ -9,7 +9,7 @@ const Footer: FC = () => {
         <footer className="relative hidden md:block">
 
             {/* Top linear Line */}
-            <div className="absolute -top-1 left-0 w-full h-2 bg-linear-to-r from-(--peach) via-blue-300 to-amber-100" />
+            <div className="absolute -top-1 left-0 w-full h-2 bg-linear-to-r from-(--from) via-blue-300 to-amber-100" />
 
             {/* Main Footer */}
             <div className="bg-(--primary) text-white py-14 pb-6">

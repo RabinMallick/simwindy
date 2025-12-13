@@ -79,7 +79,7 @@ export default function ReviewAndPurchase() {
                   <Package />
 
                   {/* SIM Counter */}
-                  <div className="flex items-center justify-between mt-4 bg-linear-to-r from-(--primary) to-(--peach) px-3 py-1 rounded">
+                  <div className="flex items-center justify-between mt-4 bg-linear-to-r from-(--primary) to-(--from) px-3 py-1 rounded">
                     <span className="text-[13px] font-medium text-white">Number of SIMs</span>
 
                     <div className="flex items-center border border-white rounded overflow-hidden text-sm">
@@ -187,7 +187,7 @@ export default function ReviewAndPurchase() {
               {/* <div className="hidden sm:block col-span-12 sm:col-span-5 lg:col-span-4 bg-white md:border border-gray-100 rounded-md">
                 <PriceSummary />
               </div> */}
-              <div className=" bg-linear-to-b  from-(--peach)/50 to-gray-100/50  rounded-t-4xl col-span-12 sm:col-span-5 lg:col-span-4 bg-white md:border border-gray-100 md:rounded-md ">
+              <div className=" bg-linear-to-b  from-(--from)/50 to-gray-100/50  rounded-t-4xl col-span-12 sm:col-span-5 lg:col-span-4 bg-white md:border border-gray-100 md:rounded-md ">
                 <PriceSummary />
               </div>
             </Form>

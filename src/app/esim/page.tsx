@@ -8,7 +8,7 @@ import { TopEsimBreadcrumb } from "@/components/eSim/TopEsimBreadcrumb";
 export default function ESim() {
   return (
     <>
-      <div className="min-h-screen bg-linear-to-b from-(--peach)/30 to-(--light-gray) md:bg-gray-100  text-slate-900 font-sans md:p-8">
+      <div className="min-h-screen bg-linear-to-b from-(--from)/30 to-(--to) text-slate-900 font-sans md:p-8">
 
         <TopHeader title="Available plans" />
 

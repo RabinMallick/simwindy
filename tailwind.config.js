@@ -12,8 +12,8 @@ module.exports = {
         secondary: "var(--secondary)",
         simBlack: "var(--black)",
         simOrange: "var(--orange)",
-        peach: "var(--peach)",             // Optional utility
-        lightGray: "var(--light-gray)",    // Optional utility
+        peach: "var(--from)",             // Optional utility
+        lightGray: "var(--to)",    // Optional utility
       },
       fontFamily: {
         outfit: ["var(--font-outfit)", "sans-serif"], // Outfit font

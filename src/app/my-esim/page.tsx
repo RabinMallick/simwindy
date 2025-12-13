@@ -5,7 +5,7 @@ import { TopHeader } from "@/components/include/TopHeader";
 import { BottomNavigation } from "@/components/include/BottomNavigation";
 import PackageCardSkeleton from "@/components/ui/skeleton/PackageCardSkeleton";
 import PackageCard from "@/components/common/card/PackageCard";
-import { packages as mockPackages } from "@/utils/packages";
+import { packages as mockPackages } from "@/utils/data/packages";
 
 const PackageGridSkeleton = () => {
   return (
@@ -30,7 +30,7 @@ export default function ESim() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16 md:pb-0">
+    <div className="min-h-screen bg-linear-to-b from-(--from)/30 to-(--to) pb-16 md:pb-0">
       <TopHeader title="My eSIM" />
 
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-4">

@@ -116,7 +116,7 @@ export const Navbar: FC = () => {
           </select>
           <Link
             href="/login"
-            className="px-3 py-1.5 cursor-pointer rounded-lg text-[#3A220F] bg-linear-to-b from-(--peach) to-(--light-gray) hover:from-orange-200 border border-(--peach) hover:to-orange-100 transition-all duration-500"
+            className="px-3 py-1.5 cursor-pointer rounded-lg text-[#3A220F] bg-linear-to-b from-(--from) to-(--to) hover:from-orange-200 border border-(--from) hover:to-orange-100 transition-all duration-500"
           >
             Login
           </Link>
