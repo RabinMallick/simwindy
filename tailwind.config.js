@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         brand: "var(--brand-color)",       // Main brand color
         primary: "var(--brand-color)",     // Alias for primary
-        secondary: "var(--secondary-text)",
+        secondary: "var( --secondary)",
         simBlack: "var(--black)",
         simOrange: "var(--orange)",
         peach: "var(--peach)",             // Optional utility

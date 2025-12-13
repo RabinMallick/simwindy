@@ -21,11 +21,8 @@
 
   --background: #ffffff;
   --primary: #175191;
-  --secondary-text: #5B6B6F;
+  --secondary: #878e9b;
 
-  --orange: #ED8A17;
-  --tan-orange: #d3945d79;
-  --vivid-orange: #f6831f42;
 
   --black: #102A2D;
   --grayish-blue: #4a7a8631;
@@ -39,7 +36,7 @@
 ============================= */
 body {
   background: var(--background);
-  color: var(--secondary-text);
+  color: var(--secondary);
   font-family: var(--font-outfit), sans-serif; /* Outfit font variable */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -82,7 +79,7 @@ html {
 }
 
 .text-secondary {
-  color: var(--secondary-text);
+  color: var( --secondary);
 }
 
 /* No scrollbar */
