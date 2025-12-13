@@ -66,7 +66,7 @@ export default function Page() {
             <span className={`fi fi-${esim.code} text-5xl rounded-md mb-2`}></span>
             <p className="text-gray-500 text-sm font-medium">{esim.country}</p>
             <h1 className="text-3xl font-bold text-gray-800 my-2">{esim.data}</h1>
-            <p className="text-gray-400 flex items-center gap-1">
+            <p className="text-[12px] md:text-[14px] text-gray-400 flex items-center gap-1">
 
               {esim.validity}, 
 
