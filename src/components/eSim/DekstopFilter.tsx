@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { HiOutlineGlobeAlt, HiOutlinePhone } from 'react-icons/hi';
 import { HiBolt } from 'react-icons/hi2';
-import { Button } from '../../common/button/Button';
+import { Button } from '../common/button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicFilters, setDynamicPriceRange, setFilters } from '@/store/slice/esimSlice';
-import { GlassRow } from '../../common/GlassRow';
+import { GlassRow } from '../common/GlassRow';
 import { RootState } from '@/store/store';
 import { PriceSlider } from './PriceSlider';
 

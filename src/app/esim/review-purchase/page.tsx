@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { increment, decrement } from '@/store/slice/checkoutSlice';
 
-import PriceSummary from '@/components/eSim/content/PriceSummary';
-import { Package } from '@/components/eSim/content/Package';
-import EsimHeader from '@/components/eSim/content/EsimHeader';
+import PriceSummary from '@/components/eSim/PriceSummary';
+import { Package } from '@/components/eSim/Package';
+import EsimHeader from '@/components/eSim/EsimHeader';
 
 import { Formik, Form, FieldArray, FormikErrors } from 'formik';
 import * as Yup from 'yup';

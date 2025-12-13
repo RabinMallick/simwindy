@@ -6,9 +6,9 @@ import { RootState } from '@/store/store';
 import { EsimFilters, filterAndSortEsim } from '@/utils/esimSort';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { DekstopFilter } from './content/DekstopFilter';
-import { EsimCard } from './content/EsimCard';       
- 
+import { DekstopFilter } from './DekstopFilter';
+import { EsimCard } from '../common/card/EsimCard';
+import { EsimCardSkeleton } from '../ui/skeleton/EsimCardSkeleton';
 
 export const EsimBody = () => {
 
@@ -46,12 +46,10 @@ export const EsimBody = () => {
         [data]
     );
 
-
     const sortedData = useMemo(
         () => filterAndSortEsim(esim as any, filters as unknown as EsimFilters, currency),
         [esim, filters, currency]
     );
-
 
     if (isError) {
         return (
@@ -63,69 +61,52 @@ export const EsimBody = () => {
 
     return (
         <>
-
             <DekstopFilter data={esim} />
 
-            {/* RIGHT SIDE */}
-            <div className="lg:col-span-8 xl:col-span-9 ">
+            <div className="lg:col-span-8 xl:col-span-9">
 
+                {/* Mobile Header */}
                 <div className="md:hidden mt-4">
-
-                    {/* Country */}
                     <div className="flex items-center gap-2 mb-1 p-2 bg-white rounded-md">
-                        {code && (
-                            <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
-                        )}
-                        <span className='bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate'>{destination} eSIM</span>
+                        {code && <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>}
+                        <span className='bg-linear-to-r from-(--primary) to-(--orange) text-transparent bg-clip-text truncate'>
+                            {destination} eSIM
+                        </span>
                     </div>
-                    <p className="text-gray-600 text-[12px]  mb-5">
+                    <p className="text-gray-600 text-[12px] mb-5">
                         Downloadable {destination} eSIM card with prepaid data
-                    </p> 
-
+                    </p>
                 </div>
 
+                {/* Desktop Header */}
                 <div className="hidden md:block">
-                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4 ">
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 gap-4">
                         <div className="flex-1 min-w-0">
                             <h1 className="flex gap-2 items-baseline text-2xl md:text-3xl font-extrabold leading-tight">
-                                {code && (
-                                    <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>
-                                )}
-
-                                <span
-                                    className="text-transparent bg-clip-text truncate"
-                                    style={{ backgroundImage: "linear-gradient(to right, var( --primary), var(--orange))" }}
-                                >
+                                {code && <span className={`fi fi-${code.toLowerCase()} w-10 h-7 shrink-0`}></span>}
+                                <span className="text-transparent bg-clip-text truncate" style={{ backgroundImage: "linear-gradient(to right, var( --primary), var(--orange))" }}>
                                     {destination} eSIM
                                 </span>
                             </h1>
-
                             <p className="text-gray-600 max-w-xl mt-1">
                                 Downloadable {destination} SIM card with prepaid data
                             </p>
                         </div>
-
                     </div>
-
                 </div>
+
                 {/* Esim Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
-                    {sortedData.map(item => (
-                        <EsimCard key={item.id} data={item as any} />
-                    ))}
+                    {isLoading
+                        ? Array.from({ length: 9 }).map((_, index) => <EsimCardSkeleton key={index} />)
+                        : sortedData.length < 0
+                            ? <div className="col-span-full text-center py-12 text-slate-500 font-medium">
+                                No eSIM packages found
+                            </div> : sortedData.map(item => <EsimCard key={item.id} data={item as any} />)
 
-                    {isLoading && (
-                        <div className="col-span-full flex items-center justify-center py-12 text-slate-500">
-                            Loading eSIM plans...
-                        </div>
-                    )}
-
-                    {!isLoading && sortedData.length === 0 && (
-                        <div className="col-span-full text-center py-12 text-slate-500 font-medium">
-                            No plans match your current filters. Try adjusting your search criteria.
-                        </div>
-                    )}
+                    } 
                 </div>
+
             </div>
         </>
     )

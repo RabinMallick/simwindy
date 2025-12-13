@@ -10,7 +10,7 @@ import {
 } from "react-icons/hi";
 import { IoMdRadioButtonOff } from "react-icons/io";
 import { useSelector } from "react-redux";
-import EsimDetails from "./EsimDetails";
+import EsimDetails from "../../eSim/EsimDetails";
 import { TopHeader } from "@/components/include/TopHeader";
 import { useSearchParams } from "next/navigation";
 
