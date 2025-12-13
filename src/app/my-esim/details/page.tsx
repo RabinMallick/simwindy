@@ -37,6 +37,8 @@ export default function Page() {
     country: "Bangladesh",
     code: "bd",
     data: "10 GB",
+    voice: "",
+    text: "",
     validity: "3 days",
   }), []);
 

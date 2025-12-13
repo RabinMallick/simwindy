@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "@/store/store";
-import { esim } from "@/utils/simData";
+import { RootState } from "@/store/store"; 
+import { esim } from "@/utils/data/simData";
 
 // 🔹 Define ESIM item type
 interface EsimItem {
