@@ -115,10 +115,10 @@ export const Navbar: FC = () => {
             <option value="AED">AED</option>
           </select>
           <Link
-            href="/apply"
+            href="/login"
             className="px-3 py-1.5 cursor-pointer rounded-lg text-[#3A220F] bg-linear-to-b from-(--peach) to-(--light-gray) hover:from-orange-200 border border-(--peach) hover:to-orange-100 transition-all duration-500"
           >
-            Buy Now
+            Login
           </Link>
         </nav>
 
@@ -172,7 +172,7 @@ export const Navbar: FC = () => {
           onClick={handleClose}
           className="block px-3 py-2 rounded-lg text-[#3A220F] font-medium bg-linear-to-r from-orange-300 to-orange-200 hover:from-orange-200 hover:to-orange-100 transition-all duration-500 text-sm mt-2"
         >
-          Apply Now
+         Profile
         </Link>
       </div>
     </header>

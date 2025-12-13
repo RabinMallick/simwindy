@@ -1,38 +1,36 @@
-'use client';
- 
+'use client'
 
-const PackageCardSkeleton = () => {
+import React from "react";
+
+const PackageCardSkeleton: React.FC = () => {
   return (
-    <div className="relative w-full px-3 py-2 rounded-md bg-white border border-slate-200 animate-pulse">
+    <div className="relative w-full px-3 py-3 rounded-md bg-white border border-slate-200 flex flex-col gap-2 animate-pulse">
+      
+      {/* Header */}
       <div className="flex justify-between items-center gap-3">
-        
-        {/* Left */}
         <div className="flex items-center gap-3">
-          {/* Flag */}
-          <div className="w-8 h-6 bg-slate-200 rounded" />
+          {/* Flag / Icon Placeholder */}
+          <div className="w-10 h-7 bg-slate-200 " />
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-1">
             {/* Title */}
-            <div className="h-4 w-40 bg-slate-200 rounded" />
-
-            {/* Voice / SMS */}
-            <div className="flex gap-3">
-              <div className="h-3 w-16 bg-slate-200 rounded" />
-              <div className="h-3 w-16 bg-slate-200 rounded" />
+            <div className="w-32 h-3 bg-slate-200 rounded" /> 
+            {/* Voice/Text */}
+            <div className="flex gap-2 mt-1">
+              <div className="w-12 h-2 bg-slate-200 rounded" />
+              <div className="w-12 h-2 bg-slate-200 rounded" />
             </div>
-
             {/* Coverage */}
-            <div className="h-3 w-28 bg-slate-200 rounded" />
+            <div className="w-24 h-2 bg-slate-200 rounded mt-1" />
           </div>
         </div>
 
-        {/* Right */}
-        <div className="flex flex-col items-end gap-2">
-          {/* Status */}
-          <div className="h-4 w-14 bg-slate-200 rounded-full" />
-
+        {/* Price */}
+        <div className="text-right flex flex-col gap-1 items-end">
+          {/* Status Badge */}
+          <div className="w-16 h-3 bg-slate-200 rounded-full" />
           {/* Price */}
-          <div className="h-5 w-16 bg-slate-200 rounded" />
+          <div className="w-18 h-4 bg-slate-200 rounded mt-1" />
         </div>
       </div>
     </div>

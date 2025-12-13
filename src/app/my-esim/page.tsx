@@ -1,14 +1,16 @@
-import { Suspense } from "react";
+'use client'
+
+import { useEffect, useState } from "react";
 import { TopHeader } from "@/components/include/TopHeader";
 import { BottomNavigation } from "@/components/include/BottomNavigation";
 import PackageCardSkeleton from "@/components/ui/skeleton/PackageCardSkeleton";
 import PackageCard from "@/components/common/card/PackageCard";
-import { packages } from "@/utils/packages";
+import { packages as mockPackages } from "@/utils/packages";
 
 const PackageGridSkeleton = () => {
   return (
-    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {Array.from({ length: 6 }).map((_, i) => (
+    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {Array.from({ length: 18 }).map((_, i) => (
         <PackageCardSkeleton key={i} />
       ))}
     </div>
@@ -16,49 +18,47 @@ const PackageGridSkeleton = () => {
 };
 
 export default function ESim() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    // If packages is an array, no need to call as function
+    setTimeout(() => {
+      setData(mockPackages);
+      setIsLoading(false);
+    }, 1000); // Simulate API delay
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 pb-16 md:pb-0">
-      
-      {/* Top Header */}
       <TopHeader title="My eSIM" />
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-4">
-        
-        {/* Page Intro */}
         <div className="mb-4">
-          <h1 className="text-sm md:text-xl font-bold text-(--primary) ">
+          <h1 className="text-sm md:text-xl font-bold" style={{ color: "var(--primary)" }}>
             My eSIM List
           </h1>
-          <p className="text-[10px] md:text-[12px] text-(--vivid-orang)">
+          <p className="text-[10px] md:text-[12px]" style={{ color: "var(--vivid-orang)" }}>
             Manage and view all your active eSIM packages
           </p>
         </div>
 
-        {/* Package List */}
-        <Suspense fallback={<PackageGridSkeleton />}>
-          {packages.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {packages.map((pkg) => (
-                <PackageCard key={pkg.id} data={pkg as any} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-20 text-center">
-              <p className="text-gray-500 text-sm">
-                No eSIM packages found
-              </p>
-            </div>
-          )}
-        </Suspense>
-
+        {isLoading ? (
+          <PackageGridSkeleton />
+        ) : data.length === 0 ? (
+          <div className="col-span-full text-center py-12 text-slate-500 font-medium">
+            No eSIM packages found
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {data.map((pkg) => <PackageCard key={pkg.id} data={pkg as any} />)}
+          </div>
+        )}
       </main>
 
-      {/* Mobile Bottom Navigation */}
       <div className="md:hidden">
         <BottomNavigation />
       </div>
-
     </div>
   );
 }
