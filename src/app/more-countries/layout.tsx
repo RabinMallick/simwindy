@@ -1,19 +1,5 @@
-import type { Metadata, Viewport } from "next";
-import { Toaster } from "react-hot-toast";
-import { Outfit } from "next/font/google";
-import { ScrollTop } from "@/components/common/scroll/ScrollTop";
-// Font setup
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: [
-    "100", "200", "300", "400", "500",
-    "600", "700", "800", "900",
-  ],
-  style: ["normal"],
-  display: "swap",
-  variable: "--font-outfit",
-});
-
+import type { Metadata, Viewport } from "next"; 
+ 
 // ✅ Branding Metadata
 export const metadata: Metadata = {
   title: {
@@ -36,14 +22,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} font-sans antialiased bg-gray-50`}>
+      <body>
 
         {/* Page Content */}
-        <main>{children}</main>
-
-        {/* Toast + Scroll */}
-        <Toaster position="top-right" reverseOrder={false} />
-        <ScrollTop />
+        <main>{children}</main> 
       </body>
     </html>
   );

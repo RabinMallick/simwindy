@@ -31,7 +31,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {cross ? (
           <div
             onClick={onClick || (() => router.back())}
-            className="absolute top-0 right-0 h-12 w-12 flex items-center justify-center "
+            className="absolute top-0 right-0 h-12 w-12 flex items-center justify-center cursor-pointer "
           >
             <RxCross1 className="text-amber-800 text-xl transition-transform duration-200 active:scale-95 hover:opacity-90" />
           </div>
@@ -39,7 +39,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           <>
             <button
               onClick={onClick || (() => router.back())}
-              className="absolute top-0 left-0 h-12 w-12 flex items-center justify-center"
+              className="absolute top-0 left-0 h-12 w-12 flex items-center justify-center cursor-pointer"
             >
               <MdArrowBackIos className="text-amber-800 text-xl transition-transform duration-200 active:scale-95 hover:opacity-90" />
             </button>

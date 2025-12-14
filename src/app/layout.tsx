@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
-import { Outfit } from "next/font/google"; 
+import { Outfit } from "next/font/google";
 
 import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
+
 import { Navbar } from "@/components/include/Navbar";
 import Footer from "@/components/include/Footer";
-import { Providers } from "@/store/providers";
+import { Providers } from "@/store/providers"; 
+import ScrollToTop2 from "@/components/common/scroll/ScrollToTop2";
 
 // Font setup
 const outfit = Outfit({
@@ -15,12 +17,11 @@ const outfit = Outfit({
     "100", "200", "300", "400", "500",
     "600", "700", "800", "900",
   ],
-  style: ["normal"],
   display: "swap",
   variable: "--font-outfit",
 });
 
-// ✅ Branding Metadata
+// ✅ Metadata (Server only)
 export const metadata: Metadata = {
   title: {
     default: "SimWindy",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   keywords: ["SimWindy", "Next.js", "Web App"],
 };
 
-// ✅ Mobile optimization
+// ✅ Viewport
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -38,24 +39,25 @@ export const viewport: Viewport = {
   themeColor: "#075056",
 };
 
-// Layout UI
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} font-sans antialiased bg-gray-50 `}>
-
+      <body className={`${outfit.variable} font-sans antialiased bg-gray-50`}>
         <Providers>
-
           <Navbar />
-          {/* Page Content */}
+
+          {/* 🔥 Scroll to top on route change */}
+          <ScrollToTop2 />
+
           <main>{children}</main>
 
           <Footer />
 
-          {/* Toast + Scroll */}
           <Toaster position="top-right" reverseOrder={false} />
-           
-
         </Providers>
       </body>
     </html>
