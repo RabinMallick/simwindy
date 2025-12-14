@@ -1,5 +1,6 @@
-import { FC, ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Field } from 'formik';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import ErrorMessage from '@/components/ui/ErrorMessage';
 
 type InputProps<T> = {
@@ -26,14 +27,18 @@ const Input = <T,>({
   no = false,
 }: InputProps<T>) => {
   const hasError = showError(field);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const isPassword = type === 'password';
+  const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
   return (
-    <div className="grid gap-1">
+    <div className="grid gap-1 relative">
       {!no && (
         <label className="font-medium text-sm md:text-xs">{title}</label>
       )}
       <Field
-        type={type || 'text'}
+        type={inputType}
         name={field as string}
         placeholder={placeholder || `Enter ${title.toLowerCase()}`}
         value={value || ''}
@@ -46,7 +51,16 @@ const Input = <T,>({
           transition-all duration-300 placeholder:font-300
           ${hasError ? 'border-red-500 focus:ring-red-500' : ''}`}
       />
-
+      {/* Password toggle icon */}
+      {isPassword && (
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-2 top-1/2 transform translate-y-0 text-gray-500"
+        >
+          {showPassword ? <AiOutlineEyeInvisible size={18} /> : <AiOutlineEye size={18} />}
+        </button>
+      )}
       {hasError && <ErrorMessage errors={error} />}
     </div>
   );
