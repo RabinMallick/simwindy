@@ -7,8 +7,8 @@ interface ProfileHeaderProps {
 
 export const ProfileHeader = ({ onClick }: ProfileHeaderProps) => {
   return (
-    <div className="px-3 mt-4">
-      <div className="bg-white rounded-md p-3 flex items-center gap-4 border border-gray-200">
+    <div >
+      <div className="bg-white rounded-md p-3 flex items-center gap-3 border border-gray-200">
         <Image
           src="/assets/user.png"
           alt="User"
@@ -22,7 +22,7 @@ export const ProfileHeader = ({ onClick }: ProfileHeaderProps) => {
           <p className="text-sm text-gray-500">apurbo@email.com</p>
         </div>
 
-        <button className="text-sm text-blue-600 font-medium" onClick={onClick}>Edit</button>
+        <button className="text-sm text-blue-600 font-medium cursor-pointer" onClick={onClick}>Edit</button>
       </div>
     </div>
   );

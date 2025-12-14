@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Stats = () => {
     return (
-        <div className="grid grid-cols-3 gap-3 px-3 mt-4">
+        <div className="grid grid-cols-3 gap-3">
             {[
                 { label: 'Balance', value: '$120' },
                 { label: 'Orders', value: '12' },

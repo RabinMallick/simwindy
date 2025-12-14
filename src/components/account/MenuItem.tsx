@@ -14,7 +14,7 @@ export const MenuItem = ({
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center gap-3 p-3 rounded-md bg-white border border-gray-200 text-left
+      className={`w-full flex items-center gap-3 p-3 rounded-md bg-white hover:bg-gray-100 border border-gray-200 text-left
             transition active:scale-[0.98] cursor-pointer
             ${danger ? 'text-red-500' : 'text-gray-700'}`}
     >
