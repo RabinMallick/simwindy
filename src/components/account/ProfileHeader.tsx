@@ -1,15 +1,20 @@
 import Image from 'next/image';
 
-export const ProfileHeader = () => {
+
+interface ProfileHeaderProps {
+  onClick: () => void
+}
+
+export const ProfileHeader = ({ onClick }: ProfileHeaderProps) => {
   return (
     <div className="px-3 mt-4">
       <div className="bg-white rounded-md p-3 flex items-center gap-4 border border-gray-200">
         <Image
-          src="/assets/help.png"
+          src="/assets/user.png"
           alt="User"
           width={60}
           height={60}
-          className="rounded-full border-2 border-gray-100 h-[50] w-[50]"
+          className="rounded-full border-2 border-gray-100 h-[50] p-1 w-[50]"
         />
 
         <div className="flex-1">
@@ -17,7 +22,7 @@ export const ProfileHeader = () => {
           <p className="text-sm text-gray-500">apurbo@email.com</p>
         </div>
 
-        <button className="text-sm text-blue-600 font-medium">Edit</button>
+        <button className="text-sm text-blue-600 font-medium" onClick={onClick}>Edit</button>
       </div>
     </div>
   );

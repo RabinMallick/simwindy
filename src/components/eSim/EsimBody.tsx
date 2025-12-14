@@ -51,7 +51,7 @@ export const EsimBody = () => {
         [esim, filters, currency]
     );
 
-    if (isError) {
+    if (!isLoading && isError) {
         return (
             <div className="text-center py-20 text-red-500">
                 Failed to load eSIM plans. Please try refreshing the page.
@@ -104,7 +104,7 @@ export const EsimBody = () => {
                                 No eSIM packages found
                             </div> : sortedData.map(item => <EsimCard key={item.id} data={item as any} />)
 
-                    } 
+                    }
                 </div>
 
             </div>

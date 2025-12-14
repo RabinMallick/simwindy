@@ -13,7 +13,7 @@ export const apiSlice = createApi({
       // token থাকলে সেট করা
       const token =
         (getState() as any).auth?.token ??
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTNkNzg0Ni1jOTRjLTQxNzEtOTdkZi00YmRiYjRmYTRiMzgiLCJ0b2tlbiI6MSwiZW1haWwiOiJhcHVyYm9rYUBnbWFpbC5jb20iLCJ1c2VyTmFtZSI6IkFwdXJibyBLdW1hciAtIiwiY29tcGFueU5hbWUiOiJBaXJib3JuZSBFeHBlZGl0aW9ucyIsInBob25lIjoiODgwMTczMjk1NTkzNyIsImN1cnJlbmN5IjoiQkRUIiwicm9sZSI6IkFHRU5UIiwiaWF0IjoxNzY1MDk1NTA4LCJleHAiOjE3NjU3MDAzMDh9.Jld17TRvlfDkjdKAyneRb0zeczCDrp60ORSfjPH4tpU';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTNkNzg0Ni1jOTRjLTQxNzEtOTdkZi00YmRiYjRmYTRiMzgiLCJ0b2tlbiI6MSwiZW1haWwiOiJhcHVyYm9rYUBnbWFpbC5jb20iLCJ1c2VyTmFtZSI6IkFwdXJibyBLdW1hciAtIiwiY29tcGFueU5hbWUiOiJBaXJib3JuZSBFeHBlZGl0aW9ucyIsInBob25lIjoiODgwMTczMjk1NTkzNyIsImN1cnJlbmN5IjoiQkRUIiwicm9sZSI6IkFHRU5UIiwiaWF0IjoxNzY1NzAwNzI1LCJleHAiOjE3NjYzMDU1MjV9.Ais43uxU8Q74Ko_lwW4gz2AebvtWHq5hiHJByZf3P3k';
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
