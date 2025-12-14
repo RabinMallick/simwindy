@@ -17,10 +17,12 @@ import { Stats } from '@/components/account/Stats'
 import { MenuItem } from '@/components/account/MenuItem'
 import { SettingsOffcanvas } from '@/components/account/SettingsOffcanvas'
 import { EditProfile } from '@/components/account/EditProfile'
+import { FAQSupport } from '@/components/account/FAQSupport'
 
 export default function Account() {
     const router = useRouter()
     const [openEditProfile, setOpenEditProfile] = useState(false)
+    const [openFAQSupport, setOpenFAQSupport] = useState(false)
     const [openSettings, setOpenSettings] = useState(false)
 
     return (
@@ -30,13 +32,12 @@ export default function Account() {
             <div className="max-w-xl mx-auto px-3 space-y-3 mt-4 md:mt-6">
                 {/* Profile Header */}
                 <ProfileHeader onClick={() => setOpenEditProfile(true)} />
-
                 {/* Stats */}
                 <Stats />
 
                 {/* Main Features Section */}
                 <div>
-                    <h2 className="text-sm font-semibold text-gray-500 mb-2">Main Features</h2>
+                    <h2 className="text-[13px] font-medium text-gray-500 mb-2">Main Features</h2>
                     <div className="grid grid-cols-2 gap-3">
                         <MenuItem
                             icon={<HiOutlineClipboardList />}
@@ -66,7 +67,7 @@ export default function Account() {
 
                 {/* Other Options Section */}
                 <div>
-                    <h2 className="text-sm font-semibold text-gray-500 mb-2">Other Options</h2>
+                    <h2 className="text-[13px] font-medium text-gray-500 mb-2">Other Options</h2>
                     <div className="space-y-3">
                         <MenuItem
                             icon={<AiOutlineGift />}
@@ -77,7 +78,7 @@ export default function Account() {
                         <MenuItem
                             icon={<FiHelpCircle />}
                             label="Support / FAQ"
-                            onClick={() => router.push('/support')}
+                            onClick={() => setOpenFAQSupport(true)}
                         />
 
                         <MenuItem
@@ -92,6 +93,7 @@ export default function Account() {
                             danger
                             onClick={() => alert('Logout action')}
                         />
+
                     </div>
                 </div>
             </div>
@@ -100,6 +102,11 @@ export default function Account() {
             <EditProfile
                 open={openEditProfile}
                 onClose={() => setOpenEditProfile(false)}
+            />
+            {/* FAQs / Support Offcanvas */}
+            <FAQSupport
+                open={openFAQSupport}
+                onClose={() => setOpenFAQSupport(false)}
             />
 
             {/* Settings Offcanvas */}

@@ -16,7 +16,11 @@ const faqs = [
 
 ];
 
-export const FAQ: FC = () => {
+interface FAQProps {
+  className?: string;
+}
+
+export const FAQ: FC<FAQProps> = ({ className  }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const toggle = (index: number) => {
@@ -24,7 +28,7 @@ export const FAQ: FC = () => {
   };
 
   return (
-    <div className="mt-12  mx-auto  py-6 pb-8">
+    <div className={`${className || ' mt-12'}  mx-auto  py-6 pb-8`}>
 
 
       <div>

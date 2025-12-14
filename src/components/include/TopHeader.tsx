@@ -31,9 +31,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {cross ? (
           <div
             onClick={onClick || (() => router.back())}
-            className="absolute top-0 right-0 h-12 w-12 flex items-center "
+            className="absolute top-0 right-0 h-12 w-12 flex items-center justify-center "
           >
-            <RxCross1 className="text-amber-800 text-lg transition-transform duration-200 active:scale-95 hover:opacity-90" />
+            <RxCross1 className="text-amber-800 text-xl transition-transform duration-200 active:scale-95 hover:opacity-90" />
           </div>
         ) : (
           <>
