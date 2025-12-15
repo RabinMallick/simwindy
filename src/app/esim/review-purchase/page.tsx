@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import clsx from 'clsx';
 import Input from '@/components/common/input/Input';
 import PhoneInputField from '@/components/common/input/PhoneInputField';
-import { TopHeader } from '@/components/include/TopHeader';
+import { TopHeader } from '@/components/include/TopHeader'; 
 
 type UserType = {
   name: string;
@@ -24,6 +24,7 @@ type UserType = {
 
 export default function ReviewAndPurchase() {
   const dispatch = useDispatch<AppDispatch>();
+ 
   const { numSim } = useSelector((state: RootState) => state.checkout);
 
   const initialValues = {

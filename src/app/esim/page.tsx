@@ -19,7 +19,7 @@ export default function ESim() {
           </Suspense>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <Suspense >
+            <Suspense fallback={<div>Loading...</div>}>
               <EsimBody />
             </Suspense>
           </div>

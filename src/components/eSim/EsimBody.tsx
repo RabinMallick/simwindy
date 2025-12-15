@@ -45,19 +45,16 @@ export const EsimBody = () => {
         () => data?.data?.map((item: { day: any; }) => ({ ...item, day: Number(item.day ?? 0) })) ?? [],
         [data]
     );
-
     const sortedData = useMemo(
         () => filterAndSortEsim(esim as any, filters as unknown as EsimFilters, currency),
         [esim, filters, currency]
     );
 
-    if (!isLoading && isError) {
-        return (
-            <div className="text-center py-20 text-red-500">
-                Failed to load eSIM plans. Please try refreshing the page.
-            </div>
-        );
-    }
+    useEffect(() => {
+    }, [sortedData]);
+
+
+
 
     return (
         <>
@@ -99,15 +96,23 @@ export const EsimBody = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
                     {isLoading
                         ? Array.from({ length: 9 }).map((_, index) => <EsimCardSkeleton key={index} />)
-                        : sortedData.length < 0
+                        : sortedData?.length < 0
                             ? <div className="col-span-full text-center py-12 text-slate-500 font-medium">
                                 No eSIM packages found
-                            </div> : sortedData.map(item => <EsimCard key={item.id} data={item as any} />)
+                            </div> : sortedData?.map(item => <EsimCard key={item.id} data={item as any} />)
 
                     }
                 </div>
 
             </div>
+
+
+
+            {(!isLoading && isError) &&
+                <div className="text-center py-20 text-red-500">
+                    Failed to load eSIM plans. Please try refreshing the page.
+                </div>
+            }
         </>
     )
 }

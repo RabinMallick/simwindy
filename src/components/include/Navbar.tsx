@@ -10,6 +10,7 @@ import { setCurrency } from '@/store/slice/currencySlice';
 import { setActiveSection } from '@/store/slice/navbarSlice'; // create a slice for active section
 import { UserDropdown } from './UserDropdown';
 import AuthLinks from './AuthLinks';
+import { useGetIPQuery } from '@/store/api/ipAdressSlice';
 
 export const Navbar: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,13 +22,12 @@ export const Navbar: FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-
+  const { data } = useGetIPQuery()
 
   const stored =
     typeof window !== "undefined"
       ? localStorage.getItem("loginForm")
       : null;
-
 
   const sections = ['services', 'countries', 'rate', 'faq', 'contact'];
 
@@ -84,11 +84,29 @@ export const Navbar: FC = () => {
 
 
   useEffect(() => {
-
   }, [stored])
 
 
-  console.log('user', user)
+  useEffect(() => {
+    if (typeof window !== "undefined" && data?.country_code) {
+      localStorage.setItem("ipAdd", data.country_code);
+    }
+  }, [data]);
+
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("ipAdd");
+      const mapping: Record<string, "BDT" | "USD" | "AED"> = {
+        BD: "BDT",
+        AE: "AED",
+      };
+      const value = mapping[stored ?? ""] || "USD";
+      dispatch(setCurrency(value));
+    }
+  }, [dispatch]);
+
+
   return (
     <header className="bg-white  border-b border-gray-100 sticky top-0 z-50 hidden md:block">
       <div className="max-w-7xl mx-auto px-3 md:px-6 py-1.5 flex items-center justify-between">

@@ -102,7 +102,7 @@ export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
         </div>
 
         {/* Price Slider */}
-        <div className="bg-(--tan-orange) p-4 rounded-lg">
+        <div className="bg-(--bg-t) p-4 rounded-lg">
           <h3 className="text-sm font-medium text-(--primary) mb-2">Price Range ({currency})</h3>
           <PriceSlider minPrice={minPrice} maxPrice={maxPrice} range={range} setRange={handlePriceChange} currency={currency} />
           <div className="flex justify-between text-xs text-gray-400 mt-2">
