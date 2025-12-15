@@ -13,7 +13,7 @@ type AuthLink = {
 
 const links: AuthLink[] = [
   { href: "/login", label: "Login", Icon: IoLogInSharp, className:'bg-(--primary) text-white  hover:bg-(--primary)/90' },
-  { href: "/register", label: "Signup", Icon: MdPersonAdd, className:'bg-white text-(--primary)  hover:bg-gray-50/90' },
+  { href: "/register", label: "Register", Icon: MdPersonAdd, className:'bg-white text-(--primary)  hover:bg-gray-50/90' },
 ];
 
 export default function AuthLinks() {

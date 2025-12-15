@@ -123,7 +123,7 @@ export default function Login() {
 
               <Button onClick={() => router.push('/register')} className="flex px-2! border border-(--primary)/60 md:border-gray-200 w-full  ">
                 <MdOutlineMailOutline size={22} />
-                Signup
+                Register
               </Button>
             </div>
 

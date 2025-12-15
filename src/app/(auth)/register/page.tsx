@@ -58,7 +58,7 @@ export default function Login() {
         {/* Right Side - Login Form */}
         <div className="w-full md:w-1/2 flex justify-center items-center p-6 -mt-12">
           <div className="w-full max-w-sm md:bg-white md:p-6 md:rounded-xl md:shadow-lg md:border border-gray-200">
-            <h2 className="text-2xl font-bold mb-6 text-center">Signup</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
             <Formik
               initialValues={initialValues}
