@@ -21,24 +21,31 @@ export default function Login() {
   const router = useRouter();
 
   const initialValues: LoginFormValues = {
-    userName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    userName: "User Name",
+    email: "user@gamil.com",
+    password: "user1234",
+    confirmPassword: "user1234",
     remember: false,
   };
 
   const validationSchema = Yup.object().shape({
     userName: Yup.string().required("Username is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().min(6, "Password too short").required("Password is required"),
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password too short")
+      .required("Password is required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], "Passwords must match")
+      .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Confirm Password is required"),
   });
 
+
   const handleSubmit = (values: LoginFormValues) => {
     console.log("Form submitted:", values);
+    localStorage.setItem("loginForm", JSON.stringify(values));
+    router.push('/account')
     // TODO: Add your signup/login logic here
   };
 

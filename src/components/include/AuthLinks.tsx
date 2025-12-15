@@ -18,7 +18,7 @@ const links: AuthLink[] = [
 
 export default function AuthLinks() {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       {links.map(({ href, label, Icon, className }) => (
         <Link
           key={href}

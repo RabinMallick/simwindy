@@ -18,11 +18,11 @@ export default function Login() {
 
   const router = useRouter();
   const initialValues: LoginFormValues = {
-    email: "",
-    password: "",
+    email: "user@gamil.com",
+    password: "user1234",
     remember: false,
-  };
-
+  }; 
+  
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().min(6, "Password too short").required("Password is required"),
@@ -30,8 +30,11 @@ export default function Login() {
 
   const handleSubmit = (values: LoginFormValues) => {
     console.log("Form submitted:", values);
+    localStorage.setItem("loginForm", JSON.stringify(values));
+    router.push('/account')
     // Add your login logic here
   };
+ 
 
   return (
     <div className=" bg-linear-to-br from-(--from) to-(--to) lg:px-6">
@@ -46,6 +49,7 @@ export default function Login() {
           <p className="text-sm text-gray-500 mb-8 text-center max-w-md animate-fadeIn delay-100">
             Seamlessly connect your devices with eSIM. Activate instantly and manage multiple numbers without physical SIM cards.
           </p>
+
         </div>
 
         {/* Right Side - Login Form */}

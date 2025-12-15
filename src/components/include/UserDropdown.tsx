@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { toggleUserMenu, closeUserMenu } from '@/store/slice/navbarSlice';
 import { FiUser, FiSmartphone, FiLogOut } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 interface UserDropdownProps {
   user?: string;
 }
 
 export const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
+
+  const router = useRouter();
+
   const dispatch = useDispatch<AppDispatch>();
   const { userMenuOpen } = useSelector((state: RootState) => state.navbar);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -59,7 +63,14 @@ export const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
 
           <button
             className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-            onClick={() => dispatch({ type: 'auth/logout' })}
+
+            onClick={() => {
+              // clear localStorage
+              localStorage.removeItem("loginForm"); // or localStorage.clear()
+
+              // redux logout
+              router.push('/login')
+            }}
           >
             <FiLogOut className="text-gray-600" />
             Logout

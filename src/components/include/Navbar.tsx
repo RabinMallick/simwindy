@@ -21,6 +21,14 @@ export const Navbar: FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+
+
+  const stored =
+    typeof window !== "undefined"
+      ? localStorage.getItem("loginForm")
+      : null;
+
+
   const sections = ['services', 'countries', 'rate', 'faq', 'contact'];
 
   const scrollToSection = (id: string) => {
@@ -75,6 +83,11 @@ export const Navbar: FC = () => {
   }, [dispatch]);
 
 
+  useEffect(() => {
+
+  }, [stored])
+
+
   console.log('user', user)
   return (
     <header className="bg-white  border-b border-gray-100 sticky top-0 z-50 hidden md:block">
@@ -116,10 +129,8 @@ export const Navbar: FC = () => {
             <option value="AED">د.إ AED</option>
           </select>
 
-          <UserDropdown user={user?.name} />
-
           {/* User Dropdown */}
-          {user ? <UserDropdown user={user?.name} /> : (
+          {stored ? <UserDropdown user={'User Name'} /> : (
             <AuthLinks />
           )}
         </nav>
