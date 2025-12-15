@@ -1,9 +1,16 @@
 "use client";
 
+import { setCurrency } from "@/store/slice/currencySlice";
+import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
+import { useDispatch, useSelector } from "react-redux";
 
 export const TopNavigation = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { currency } = useSelector((state: RootState) => state.currency);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -32,8 +39,17 @@ export const TopNavigation = () => {
       />
 
       <div className="flex items-center gap-3 text-sm">
-        <button className="px-3 py-1 border rounded-full">Support</button>
-        <button className="px-3 py-1 border rounded-full">Eng</button>
+        <select
+          className="focus:outline-none"
+          value={currency}
+          onChange={(e) =>
+            dispatch(setCurrency(e.target.value as "BDT" | "USD" | "AED"))
+          }
+        >
+          <option value="BDT">{`৳ `}BDT</option>
+          <option value="USD">{`$ `}USD</option>
+          <option value="AED">{`'د.إ `}AED</option>
+        </select>
       </div>
     </header>
   );

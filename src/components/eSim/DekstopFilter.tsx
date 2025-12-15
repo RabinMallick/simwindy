@@ -7,7 +7,7 @@ import { Button } from '../common/button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDynamicFilters, setDynamicPriceRange, setFilters } from '@/store/slice/esimSlice';
 import { GlassRow } from '../common/GlassRow';
-import { RootState } from '@/store/store';
+import { AppDispatch, RootState } from '@/store/store';
 import { PriceSlider } from './PriceSlider';
 
 interface FiltersState {
@@ -23,22 +23,22 @@ interface FiltersState {
 }
 
 interface DekstopFilterProps {
-  data?: Array<{ netPrice: string | number; prices?: Record<string, number | string>; [key: string]: any }>;
+  data?: Array<{ netPrice: string | number; prices?: Record<string, number | string>;[key: string]: any }>;
 }
 
 export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const filters = useSelector((state: RootState) => state.esim) as FiltersState;
-   const { currency } = useSelector((state: RootState) => state.currency);
+  const { currency } = useSelector((state: RootState) => state.currency);
 
   const prices: number[] = Array.isArray(data)
     ? data
-        .map((item) => {
-          const priceRaw = (item.prices?.recommended_retail_price as Record<string, number | string> | undefined)?.[currency] ?? item.netPrice ?? '0';
-          const price = typeof priceRaw === 'number' ? priceRaw : parseFloat(String(priceRaw));
-          return isNaN(price) || price < 0 ? null : price;
-        })
-        .filter((price): price is number => price !== null)
+      .map((item) => {
+        const priceRaw = (item.prices?.recommended_retail_price as Record<string, number | string> | undefined)?.[currency] ?? item.netPrice ?? '0';
+        const price = typeof priceRaw === 'number' ? priceRaw : parseFloat(String(priceRaw));
+        return isNaN(price) || price < 0 ? null : price;
+      })
+      .filter((price): price is number => price !== null)
     : [];
 
   const minPrice = prices.length ? Math.min(...prices) : 0;
@@ -79,15 +79,14 @@ export const DekstopFilter: React.FC<DekstopFilterProps> = ({ data = [] }) => {
             <Button
               key={value}
               onClick={() => handleToggleFilter(key, value)}
-              className={`text-xs! px-1! py-1.5 rounded-md transition-colors flex items-center justify-center border-0 ${
-                filters[key] === value
+              className={`text-xs! px-1! py-1.5 rounded-md transition-colors flex items-center justify-center border-0 ${filters[key] === value
                   ? 'text-[#3A220F] font-medium bg-linear-to-r from-orange-300 to-orange-200 hover:from-orange-200 hover:to-orange-100 shadow-md'
                   : 'bg-(--primary)/8 text-(--black)  hover:bg-(--primary)/15'
-              }`}
+                }`}
             >
               {value} {unit}
             </Button>
-          ))} 
+          ))}
         </div>
       </div>
     );

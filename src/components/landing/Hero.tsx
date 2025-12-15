@@ -235,7 +235,7 @@ export const Hero = () => {
             <div className="lg:col-span-5 flex justify-end">
                 <div className="w-full max-w-md bg-white rounded-xl shadow-md overflow-hidden">
                     <Image
-                        src="/assets/hero.png"
+                        src="/assets/hero.jpg"
                         width={500}
                         height={360}
                         alt="hero"

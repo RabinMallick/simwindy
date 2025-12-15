@@ -32,7 +32,7 @@ const PhoneInputField: FC<PhoneInputFieldProps> = ({
                 onChange={onChange}
                 inputProps={{ required: true, name: 'phone' }}
                 containerClass="!w-full"
-                inputClass={`!w-full !h-[35px]  !rounded-md !border !border-gray-100 !pl-[52px] !pr-[70px] !text-gray-700 !bg-white focus:ring-1! focus:ring-(--primary)! transition-all duration-300 ${showError ? 'border-red-500! focus:ring-red-500' : ''} `}
+                inputClass={`!w-full !h-[40px]  !rounded-md !border !border-gray-100 !pl-[52px] !pr-[70px] !text-gray-700 !bg-white focus:ring-1! focus:ring-(--primary)! transition-all duration-300 ${showError ? 'border-red-500! focus:ring-red-500' : ''} `}
 
             />
             {showError && error && <ErrorMessage errors={error} />}

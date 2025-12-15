@@ -6,6 +6,8 @@ import docsReducer from "./slice/docsSlice";
 import esimReducer from "./slice/esimSlice";
 import checkoutReducer from "./slice/checkoutSlice";
 import currencyReducer from "./slice/currencySlice";
+import navbarReducer from "./slice/navbarSlice";
+import authReducer from "./api/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
     esim: esimReducer,
     checkout: checkoutReducer,
     currency: currencyReducer,
+    navbar: navbarReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware,),

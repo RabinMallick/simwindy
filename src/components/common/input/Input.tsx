@@ -33,11 +33,12 @@ const Input = <T,>({
   const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
   return (
-    <div className="grid gap-1 relative">
-      {!no && (
+    <div> 
+      <div className='relative'>
+         {!no && (
         <label className="font-medium text-sm md:text-xs">{title}</label>
       )}
-      <Field
+        <Field
         type={inputType}
         name={field as string}
         placeholder={placeholder || `Enter ${title.toLowerCase()}`}
@@ -45,7 +46,7 @@ const Input = <T,>({
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           onChange(field, e.target.value)
         }
-        className={`w-full text-[13px] md:text-sm rounded-md px-3 py-1.5 h-[35px]! pr-10 bg-white placeholder-gray-400 text-gray-700
+        className={`w-full text-sm rounded-md px-3 py-2 pr-10 bg-white! placeholder-gray-400 text-gray-700
           border border-gray-100
           focus:outline-none focus:border-transparent focus:ring-1 focus:ring-(--primary)
           transition-all duration-300 placeholder:font-300
@@ -56,11 +57,12 @@ const Input = <T,>({
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-2 top-1/2 transform translate-y-0 text-gray-500"
+          className="absolute right-2 top-8 transform translate-y-0 text-gray-500"
         >
           {showPassword ? <AiOutlineEyeInvisible size={18} /> : <AiOutlineEye size={18} />}
         </button>
       )}
+      </div>
       {hasError && <ErrorMessage errors={error} />}
     </div>
   );

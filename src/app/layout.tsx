@@ -7,7 +7,7 @@ import "./globals.css";
 
 import { Navbar } from "@/components/include/Navbar";
 import Footer from "@/components/include/Footer";
-import { Providers } from "@/store/providers"; 
+import { Providers } from "@/store/providers";
 import ScrollToTop2 from "@/components/common/scroll/ScrollToTop2";
 
 // Font setup
@@ -50,14 +50,15 @@ export default function RootLayout({
         <Providers>
           <Navbar />
 
-          {/* 🔥 Scroll to top on route change */}
-          <ScrollToTop2 />
 
           <main>{children}</main>
 
           <Footer />
 
           <Toaster position="top-right" reverseOrder={false} />
+
+          {/* 🔥 Scroll to top on route change */}
+          <ScrollToTop2 />
         </Providers>
       </body>
     </html>
