@@ -23,25 +23,35 @@ export const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
 
   // Close dropdown on outside click
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(e.target as Node)
+      ) {
         dispatch(closeUserMenu());
       }
-    };
+    }
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dispatch]);
 
+
+  useEffect(() => {
+  dispatch(closeUserMenu());
+}, [router, dispatch]);
+
   return (
     <div className="relative" ref={userMenuRef}>
-      <Image
-        src="/assets/user.png"
-        alt="User"
-        height={35}
-        width={35}
-        onClick={() => dispatch(toggleUserMenu())}
-        className="rounded-full border border-gray-200 cursor-pointer"
-      />
+      <button onClick={() => dispatch(toggleUserMenu())}>
+        <Image
+          src="/assets/user.png"
+          alt="User"
+          height={35}
+          width={35}
+          className="rounded-full border border-gray-200"
+        />
+      </button>
 
       {userMenuOpen && (
         <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-100 rounded-md shadow-lg z-50">
@@ -65,11 +75,14 @@ export const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
             className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
 
             onClick={() => {
-              // clear localStorage
-              localStorage.removeItem("loginForm"); // or localStorage.clear()
+              try {
+                localStorage.removeItem("loginForm");
+              } catch (e) {
+                console.error("Logout failed", e);
+              }
 
-              // redux logout
-              router.push('/login')
+              dispatch(closeUserMenu());
+              router.push('/login');
             }}
           >
             <FiLogOut className="text-gray-600" />

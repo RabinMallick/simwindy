@@ -2,8 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // baseURL environment থেকে নিবে
 const baseUrl =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 
-  'https://apiv2.ticketlagbe.com/core';
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'https://apiv2.ticketlagbe.com/core';
 
 export const apiSlice = createApi({
   reducerPath: 'api', // slice name
@@ -20,6 +19,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  
   tagTypes: ['User', 'Booking', 'Hotel', 'Sim'], // cache invalidation এর জন্য
   endpoints: (builder) => ({
     // Example: get current user
@@ -43,17 +43,20 @@ export const apiSlice = createApi({
       providesTags: ['User'],
     }),
 
-    getEsims: builder.mutation({
+    getEsims: builder.query<any, any>({
       query: (body) => ({
-        url: `mobileDataSim/packages`,
+        url: 'mobileDataSim/packages',
         method: 'POST',
-        body: body,
+        body,
       }),
-      invalidatesTags: ['Sim'],
     }),
   }),
 });
 
 // hooks auto-generate হবে
-export const { useGetUserQuery, useLoginMutation, useCountryQuery, useGetEsimsMutation } =
-  apiSlice;
+export const {
+  useGetUserQuery,
+  useLoginMutation,
+  useCountryQuery,
+  useGetEsimsQuery,
+} = apiSlice;

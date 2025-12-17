@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo } from 'react'
-import { useGetEsimsMutation } from '@/store/api/apiSlice';
+import { useEffect, useMemo } from 'react'
 import { RootState } from '@/store/store';
 import { EsimFilters, filterAndSortEsim } from '@/utils/esimSort';
 import { useSearchParams } from 'next/navigation';
@@ -9,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { DekstopFilter } from './DekstopFilter';
 import { EsimCard } from '../common/card/EsimCard';
 import { EsimCardSkeleton } from '../ui/skeleton/EsimCardSkeleton';
+import { useGetEsimsQuery } from '@/store/api/apiSlice';
 
 export const EsimBody = () => {
 
@@ -20,26 +20,21 @@ export const EsimBody = () => {
     const filters = useSelector((state: RootState) => state.esim);
     const { currency } = useSelector((state: RootState) => state.currency);
 
-    const [getEsims, { isLoading, isError, data }] = useGetEsimsMutation();
 
-    const fetchParams = useMemo(() => ({
-        userId: "ae3d7846-c94c-4171-97df-4bdbb4fa4b38",
-        type: type === "Global" ? "GLOBAL" : type === "Regions" ? "REGIONAL" : "LOCAL",
-        countryCode: type === "Global" ? "" : code,
-        region: type === "Global" ? "" : destination.toLowerCase(),
-    }), [type, code, destination]);
+    const body = useMemo(() => {
+        if (!type) return null;
 
-    const fetchEsims = useCallback(async () => {
-        try {
-            await getEsims(fetchParams).unwrap();
-        } catch (err) {
-            console.error("Failed to fetch eSIMs:", err);
-        }
-    }, [getEsims, fetchParams]);
+        return {
+            userId: "ae3d7846-c94c-4171-97df-4bdbb4fa4b38",
+            type: type === "Global" ? "GLOBAL" : type === "Regions" ? "REGIONAL" : "LOCAL",
+            countryCode: type === "Global" ? "" : code,
+            region: type === "Global" ? "" : destination.toLowerCase(),
+        };
+    }, [type, code, destination]);
 
-    useEffect(() => {
-        fetchEsims();
-    }, [fetchEsims]);
+    const { data, isLoading, isError } = useGetEsimsQuery(body!, {
+        skip: !body,
+    });
 
     const esim = useMemo(
         () => data?.data?.map((item: { day: any; }) => ({ ...item, day: Number(item.day ?? 0) })) ?? [],
@@ -52,8 +47,6 @@ export const EsimBody = () => {
 
     useEffect(() => {
     }, [sortedData]);
-
-
 
 
     return (
@@ -96,7 +89,7 @@ export const EsimBody = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
                     {isLoading
                         ? Array.from({ length: 9 }).map((_, index) => <EsimCardSkeleton key={index} />)
-                        : sortedData?.length < 0
+                        : sortedData?.length === 0
                             ? <div className="col-span-full text-center py-12 text-slate-500 font-medium">
                                 No eSIM packages found
                             </div> : sortedData?.map(item => <EsimCard key={item.id} data={item as any} />)
